@@ -1,5 +1,7 @@
 # Notification Management Project 
-## RESTAPI 명세
+---
+---
+## RESTAPI 명세서
 ### Firebase 서비스 계정 비공개 키 관리
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
@@ -8,6 +10,7 @@
 | 3 | GET     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 조회(단건) |
 | 4 | PUT     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 수정 |
 | 5 | DELETE  | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 삭제 |
+<br>
 
 ### App(Client) 토큰 관리
 | index | Method | URI | Description | 
@@ -19,6 +22,7 @@
 | 5 | PUT     | `/push/token/{appId}/{accountId}` | Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId) |
 | 6 | DELETE  | `/push/token/{appId}/{accountId}` | Token 삭제(by appId, accountId) |
 | 7 | DELETE  | `Token 삭제(by appId, accountId, token)` | Token 삭제(by appId, accountId, token) |
+<br>
 
 ### Push 발송 요청 
 | index | Method | URI | Description | 
@@ -26,15 +30,18 @@
 | 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 |
 | 2 | POST    | `/push/transmit/{appId}` | 앱 별 Push 발송 요청 |
 | 3 | POST    | `/push/transmit/{appId}/{topic}` | 주제 별 Push 발송 요청 |
-
-
-<br><br>  
-
----
 <br>
 
+### 로그 관리
+| index | Method | URI | Description | 
+| :---: | --- | --- | --- |
+| 1 | GET     | `/push/trace/{transReqId}` | PUSH 발송 요청 로그 조회(단건) |
+| 2 | GET     | `/push/trace/{reqDt}/{pageNo}/{size}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) |
+<br>
 
-## RESTAPI 정의 
+---
+---
+## RESTAPI 정의서
 ### Firebase 서비스 계정 비공개 키 관리
 #### 1. Firebase 서비스 계정 비공개 키 등록  
 ```POST http://[ServerIp]:[ServerPort]/[context-path]/push/certification```  
@@ -84,7 +91,7 @@
 #### 5. Firebase 서비스 계정 비공개 키 삭제
 ```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/certification/{appId}```
 
-<br><br>
+<br>
 
 ### App(Client) 토큰 관리
 #### 1. Token 등록
@@ -124,7 +131,7 @@ Content-Type:application/json
 #### 7. Token 삭제(by appId, accountId, token)
 ```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}/{token}```
 
-<br><br>
+<br>
 
 ### Push 발송 요청 
 #### 1. 사용자 별 Push 발송 요청
@@ -181,34 +188,23 @@ Content-Type:application/json
 }
 ```
 
+<br>
+
+### 로그 관리
+#### 1. PUSH 발송 요청 로그 조회(단건) 
+```GET http://[ServerIp]:[ServerPort]/[context-path]/push/trace/{transReqId}```
+
+#### 2. PUSH 발송 요청 로그 조회(리스트 by 요청일자) 
+```GET http://[ServerIp]:[ServerPort]/[context-path]/push/trace/{reqDt}/{pageNo}/{size}```
 
 <br><br>  
 
 ---
 ---
-백업 라인 이하 설계 완료 후 제거
-<br><br>  
+<br>
 
-
-
-
-#### 4. 로그 관리
-```
-4.1. PUSH 발송 로그 조회 
-GET http://[ServerIp]:[ServerPort]/[context-path]/push/trace/[{transReqId}]
-
-POST http://[ServerIp]:[ServerPort]/[context-path]/push/trace/[{appId}]
-{
-    "fromDate" : "2021-02-01",
-    "toDate" : "2021-02-02",
-    "pageNo" : "1", 
-    "size" : "10"
-}
-```
-
-### Database 설계 ( mariadb 기준 )
-
-#### 1. PMS 서버 키 관리 테이블
+## Database 설계 ( mariadb 기준 )
+### 1. PMS 서버 키 관리 테이블
 ```
 -- DROP TABLE TB_PUSH_CERTIFICATION ;
 CREATE TABLE `TB_PUSH_CERTIFICATION` (
@@ -224,7 +220,7 @@ CREATE TABLE `TB_PUSH_CERTIFICATION` (
 ) ENGINE=InnoDB COMMENT='푸쉬 서비스 계정 비공개 키 정보'
 ```
 
-#### 2. Push 클라이언트 토큰 관리 테이블
+### 2. Push 클라이언트 토큰 관리 테이블
 ```
 -- DROP TABLE TB_PUSH_TOKEN ;
 CREATE TABLE `TB_PUSH_TOKEN` (
@@ -237,7 +233,7 @@ CREATE TABLE `TB_PUSH_TOKEN` (
   PRIMARY KEY (`APP_ID`,`ACCOUNT_ID`,`TOKEN`)
 ) ENGINE=InnoDB COMMENT='푸쉬 토큰 정보' ;
 ```
-#### 3. Push 발송 요청 로그 관리 테이블
+### 3. Push 발송 요청 로그 관리 테이블
 ```
 -- DROP TABLE TB_PUSH_TRANSMIT_REQ
 CREATE TABLE `TB_PUSH_TRANSMIT_REQ` (
@@ -263,8 +259,12 @@ CREATE TABLE `TB_PUSH_TRANSMIT` (
   PRIMARY KEY (`TRANSMIT_REQ_ID`, `TARGET`)
 ) ENGINE=InnoDB COMMENT='푸쉬 발송 요청 정보(provider to fcm)' ;
 ```
+<br><br>  
 
 ---
+---
+<br><br>  
+
 ## TODO List
 ```
 1. 공통 에러 정의 v
@@ -288,8 +288,16 @@ etc
 - fcm 외 pms(apns direct, baidu), ...? 
 ```
 
+<br><br>  
+
+
+
+
 ---
-## back up line ( 설계 마무리 후 제거~ )
+---
+* 백업 라인 이하 설계 완료 후 제거
+<br><br>  
+
 ```
 maria 5.5 이하 스키마
 
