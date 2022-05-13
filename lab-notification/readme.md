@@ -13,51 +13,19 @@
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
 | 1 | POST    | `/push/token` | App 토큰 등록 |
-| 2 | GET     | `/push/certifications/{page}/{size}` | Firebase 서비스 계정 비공개 키 조회(리스트) |
-| 3 | GET     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 조회(단건) |
-| 4 | PUT     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 수정 |
-| 5 | DELETE  | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 삭제 |
+| 2 | GET     | `/push/token/{appId}/{page}/{size}` | Token 조회(리스트 by appId) |
+| 3 | GET     | `/push/token/{appId}/{accountId}` | Token 조회(리스트 by appId, accountId) |
+| 4 | GET     | `/push/token/{appId}/{accountId}/{page}/{size}` | Token 조회(리스트 by appId, accountId, page, size) |
+| 5 | PUT     | `/push/token/{appId}/{accountId}` | Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId) |
+| 6 | DELETE  | `/push/token/{appId}/{accountId}` | Token 삭제(by appId, accountId) |
+| 7 | DELETE  | `Token 삭제(by appId, accountId, token)` | Token 삭제(by appId, accountId, token) |
 
-
-
-
-1. Token 등록
-```POST http://[ServerIp]:[ServerPort]/[context-path]/push/token```
-```
-Content-Type:application/json
-{
-    "appId": "LABPUSH001",
-    "accountId": "thiago@sk.com",
-    "token": "eMM3EjG4J7K3dla...Tzog4Qp7UYG-A"
-}
-```
-
-2. Token 조회(리스트 by appId)
-```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{page}/{size}```  
-
-3. Token 조회(리스트 by appId, accountId)
-```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```  
-
-4. Token 조회(리스트 by appId, accountId, page, size)
-```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}/{page}/{size}```  
-
-
-5. Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId)
-```PUT http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```
-```
-Content-Type:application/json
-{
-    "token" : "eMM3EjG4J7K3dla...Tzog4Qp7UYG-A",  -- optional
-    "useYn" : "N"
-}
-```
-
-6. Token 삭제(by appId, accountId)
-```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```
-
-7. Token 삭제(by appId, accountId, token)
-```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}/{token}```
-
+### Push 발송 요청 
+| index | Method | URI | Description | 
+| :---: | --- | --- | --- |
+| 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 |
+| 2 | POST    | `/push/transmit/{appId}` | 앱 별 Push 발송 요청 |
+| 3 | POST    | `/push/transmit/{appId}/{topic}` | 주제 별 Push 발송 요청 |
 
 
 <br><br>  
@@ -116,8 +84,102 @@ Content-Type:application/json
 #### 5. Firebase 서비스 계정 비공개 키 삭제
 ```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/certification/{appId}```
 
+<br><br>
+
+### App(Client) 토큰 관리
+#### 1. Token 등록
+```POST http://[ServerIp]:[ServerPort]/[context-path]/push/token```
+```
+Content-Type:application/json
+{
+    "appId": "LABPUSH001",
+    "accountId": "thiago@sk.com",
+    "token": "eMM3EjG4J7K3dla...Tzog4Qp7UYG-A"
+}
+```
+
+#### 2. Token 조회(리스트 by appId)
+```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{page}/{size}```  
+
+#### 3. Token 조회(리스트 by appId, accountId)
+```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```  
+
+#### 4. Token 조회(리스트 by appId, accountId, page, size)
+```GET http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}/{page}/{size}```  
 
 
+#### 5. Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId)
+```PUT http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```
+```
+Content-Type:application/json
+{
+    "token" : "eMM3EjG4J7K3dla...Tzog4Qp7UYG-A",  -- optional
+    "useYn" : "N"
+}
+```
+
+#### 6. Token 삭제(by appId, accountId)
+```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}```
+
+#### 7. Token 삭제(by appId, accountId, token)
+```DELETE http://[ServerIp]:[ServerPort]/[context-path]/push/token/{appId}/{accountId}/{token}```
+
+<br><br>
+
+### Push 발송 요청 
+#### 1. 사용자 별 Push 발송 요청
+```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{accountId}```
+```
+Content-Type:application/json
+{
+    "notification": {
+      "title": "Lab Message Title", 
+      "body": "Lab Message Body",
+      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
+    },
+    "data" : {  -- optional
+      "name": "wrench",
+      "mass": "1.3kg", 
+      "count": "3" 
+    }
+}
+```
+
+#### 2. 앱 별 Push 발송 요청 
+```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}```
+```
+Content-Type:application/json
+{
+    "notification": {
+      "title": "Lab Message Title", 
+      "body": "Lab Message Body",
+      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
+    },
+    "data" : {  -- optional
+      "name": "wrench",
+      "mass": "1.3kg", 
+      "count": "3" 
+    }
+}
+```
+
+#### 3. 주제 별 Push 발송 요청
+```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{topic}```
+```
+Content-Type:application/json
+{
+    "notification": {
+      "title": "Lab Message Title", 
+      "body": "Lab Message Body",
+      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
+    },
+    "data" : {  -- optional
+      "name": "wrench",
+      "mass": "1.3kg", 
+      "count": "3" 
+    }
+}
+```
 
 
 <br><br>  
@@ -129,40 +191,6 @@ Content-Type:application/json
 
 
 
-
-#### 3. Push 발송 요청 
-```
-3.1. 사용자 기준 Push 발송 요청
-POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/[{appId}]/[{accountId}]
-Content-Type:application/json
-{
-    "notification": {
-      "title": "Lab Message Title",
-      "body": "Lab Message Body"
-    }
-}
-
-TODO : 
-3.2. APP(여러 사용자) 기준 Push 발송 요청 
-POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/[{appId}]
-{
-    "notification": {
-      "title": "Lab Message Title",
-      "body": "Lab Message Body"
-    }, 
-    "accountIds" : [ "user_id_1", "user_id_2" , "user_id_3" ]
-}
-
-3.3. APP(주제) 기준 Push 발송 요청
-POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/[{appId}]
-{
-    "notification": {
-      "title": "Lab Message Title",
-      "body": "Lab Message Body"
-    }, 
-    "topic" : "news"
-}
-```
 
 #### 4. 로그 관리
 ```
