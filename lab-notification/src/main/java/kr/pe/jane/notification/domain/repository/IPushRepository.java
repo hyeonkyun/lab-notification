@@ -6,11 +6,10 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.pe.jane.notification.common.Page;
 import kr.pe.jane.notification.domain.model.PushCertificationInfo;
+import kr.pe.jane.notification.web.dto.Page;
 import kr.pe.jane.notification.web.dto.PushCertificationParam;
 
 @Mapper

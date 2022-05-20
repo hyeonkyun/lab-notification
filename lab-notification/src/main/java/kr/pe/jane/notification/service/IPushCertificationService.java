@@ -2,9 +2,9 @@ package kr.pe.jane.notification.service;
 
 import java.util.List;
 
-import kr.pe.jane.notification.common.Page;
 import kr.pe.jane.notification.common.exception.PushException;
 import kr.pe.jane.notification.domain.model.PushCertificationInfo;
+import kr.pe.jane.notification.web.dto.Page;
 import kr.pe.jane.notification.web.dto.PushCertificationParam;
 
 public interface IPushCertificationService {

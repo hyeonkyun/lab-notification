@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-import kr.pe.jane.notification.common.Page;
 import kr.pe.jane.notification.common.exception.PushError;
 import kr.pe.jane.notification.common.exception.PushException;
 import kr.pe.jane.notification.domain.model.PushCertificationInfo;
 import kr.pe.jane.notification.service.IPushCertificationService;
+import kr.pe.jane.notification.web.dto.Page;
 import kr.pe.jane.notification.web.dto.PushCertificationParam;
 import kr.pe.jane.notification.web.dto.PushResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +37,7 @@ public class PushCertificationController {
 	@Inject
 	IPushCertificationService pushCertificationService; 
 	
+	/** | 1 | POST    | `/push/certification` | Firebase 서비스 계정 비공개 키 등록 | */
 	@PostMapping( value = "/certification", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushCertificationRegister( @RequestBody PushCertificationParam pushCertificationParam, HttpServletRequest request ) throws PushException {
 		log.debug( pushCertificationParam.toString() );
@@ -50,11 +51,13 @@ public class PushCertificationController {
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK) );
 	}
 	
+	/** | 2 | GET     | `/push/certifications/{page}/{size}` | Firebase 서비스 계정 비공개 키 조회(리스트) | */
 	@GetMapping( value = "/certifications/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushCertificationSearchList( @PathVariable ("page") int _page, @PathVariable ("size") int _size, HttpServletRequest request ) throws PushException {
 		Map<String, Object> responseBody = new HashMap<String, Object>();		
+		Page page = new Page( _page, _size );
 		
-		List<PushCertificationInfo> pushCertificationInfoList = pushCertificationService.getPushCertificationList( new Page( _page, _size ) );
+		List<PushCertificationInfo> pushCertificationInfoList = pushCertificationService.getPushCertificationList( page );
 		
 		pushCertificationInfoList.forEach(action -> {
 			try {
@@ -64,17 +67,15 @@ public class PushCertificationController {
 			}
 		});
 		
-		responseBody.put("page", _page);
-		responseBody.put("size", _size);
-		responseBody.put("total", pushCertificationService.getPushCertificationTotalCnt() );
-		
 		if ( pushCertificationInfoList != null && pushCertificationInfoList.size() > 0 ) {
+			responseBody.put("pagination", page);
 			responseBody.put("pushCertificationInfoList", pushCertificationInfoList);
 		}
 		
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
 	}
 	
+	/** | 3 | GET     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 조회(단건) | */
 	@GetMapping( value = "/certification/{appId}", produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushCertificationSearch( @PathVariable ("appId") String _appId, HttpServletRequest request ) throws PushException, JsonMappingException, JsonProcessingException {
 		Map<String, Object> responseBody = new HashMap<String, Object>();
@@ -89,6 +90,7 @@ public class PushCertificationController {
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
 	}
 	
+	/** | 4 | PUT     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 수정 | */
 	@PutMapping( value = "/certification/{appId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushCertificationModify( @PathVariable ("appId") String _appId, @RequestBody PushCertificationParam pushCertificationParam, HttpServletRequest request ) throws PushException {
 		log.debug( pushCertificationParam.toString() );
@@ -104,6 +106,7 @@ public class PushCertificationController {
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK) );
 	}
 	
+	/** | 5 | DELETE  | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 삭제 | */
 	@DeleteMapping( value = "/certification/{appId}", produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushCertificationRemove( @PathVariable ("appId") String _appId, HttpServletRequest request ) throws PushException {
 		pushCertificationService.removePushCertification( _appId );

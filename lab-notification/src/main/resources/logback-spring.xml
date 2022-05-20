@@ -79,7 +79,7 @@
 			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="com.sk.lab" level="DEBUG" additivity="false">
+		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
 			<appender-ref ref="console" />
 		</logger>
@@ -96,39 +96,48 @@
 
 		<logger name="org.springframework" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<logger name="org.mybatis" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<logger name="org.apache.commons" level="WARN" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<logger name="jdbc.resultsettable" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<logger name="jdbc.sqltiming" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<logger name="org.apache.http" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="com.sk.lab" level="DEBUG" additivity="false">
+		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="com.sk.lab.notification.provider" level="DEBUG" additivity="false">
+		<logger name="kr.pe.jane.notification.provider" level="DEBUG" additivity="false">
 			<appender-ref ref="interfaceFileAppender" />
+			<appender-ref ref="console" />
 		</logger>
 
 		<!-- Root Logger -->
 		<root level="WARN" additivity="false">
 			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
 		</root>
 
 	</springProfile>
@@ -159,11 +168,11 @@
 			<appender-ref ref="ASYNC" />
 		</logger>
 
-		<logger name="com.sk.lab" level="DEBUG" additivity="false">
+		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
 		</logger>
 
-		<logger name="com.sk.lab.notification.provider" level="DEBUG" additivity="false">
+		<logger name="kr.pe.jane.notification.provider" level="DEBUG" additivity="false">
 			<appender-ref ref="interfaceFileAppender" />
 		</logger>
 

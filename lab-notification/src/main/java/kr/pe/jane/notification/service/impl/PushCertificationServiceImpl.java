@@ -6,12 +6,12 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import kr.pe.jane.notification.common.Page;
 import kr.pe.jane.notification.common.exception.PushError;
 import kr.pe.jane.notification.common.exception.PushException;
 import kr.pe.jane.notification.domain.model.PushCertificationInfo;
 import kr.pe.jane.notification.domain.repository.IPushRepository;
 import kr.pe.jane.notification.service.IPushCertificationService;
+import kr.pe.jane.notification.web.dto.Page;
 import kr.pe.jane.notification.web.dto.PushCertificationParam;
 
 @Service
@@ -47,6 +47,8 @@ public class PushCertificationServiceImpl implements IPushCertificationService {
 	@Override
 	public List<PushCertificationInfo> getPushCertificationList( Page page ) throws PushException {		
 		try {	  
+			page.setTotalCount(getPushCertificationTotalCnt());
+			
 			return pushRepository.selectPushCertificationInfoList( page );
 		} catch (Exception e) {
 			throw new PushException(PushError.INTERNAL_ERROR, e);
