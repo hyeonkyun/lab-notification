@@ -9,13 +9,11 @@ import kr.pe.jane.notification.web.dto.PushCertificationParam;
 
 public interface IPushCertificationService {
 
-public int addPushCertification( PushCertificationParam pushCertificationParam ) throws PushException;
+	public int addPushCertification( PushCertificationParam pushCertificationParam ) throws PushException;
 	
 	public PushCertificationInfo getPushCertification( String appId ) throws PushException;
 	
 	public List<PushCertificationInfo> getPushCertificationList( Page page ) throws PushException; 
-	
-	public int getPushCertificationTotalCnt() throws PushException;
 	
 	public int modifyPushCertification( PushCertificationParam pushCertificationParam )  throws PushException;
 	

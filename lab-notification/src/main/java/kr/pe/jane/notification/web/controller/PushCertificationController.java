@@ -68,8 +68,8 @@ public class PushCertificationController {
 		});
 		
 		if ( pushCertificationInfoList != null && pushCertificationInfoList.size() > 0 ) {
-			responseBody.put("pagination", page);
-			responseBody.put("pushCertificationInfoList", pushCertificationInfoList);
+			responseBody.put( "pagination", page );
+			responseBody.put( "pushCertificationInfoList", pushCertificationInfoList );
 		}
 		
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );

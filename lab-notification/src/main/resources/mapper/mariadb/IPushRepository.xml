@@ -34,7 +34,7 @@
 		 WHERE APP_ID = #{appId}
 	</update>
 	
-	<!-- <insert id="insertPushToken" parameterType="kr.pe.jane.notification.web.dto.PushTokenParam">
+	<insert id="insertPushToken" parameterType="kr.pe.jane.notification.web.dto.PushTokenParam">
 		INSERT INTO TB_PUSH_TOKEN 
 		(
 			APP_ID, 
@@ -46,6 +46,6 @@
 			#{token}
 		) ON DUPLICATE KEY
 		UPDATE REG_DT = current_timestamp()
-	</insert> -->
+	</insert>
 	
 </mapper>

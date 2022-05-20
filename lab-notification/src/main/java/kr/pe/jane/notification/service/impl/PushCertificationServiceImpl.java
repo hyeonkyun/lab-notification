@@ -47,7 +47,7 @@ public class PushCertificationServiceImpl implements IPushCertificationService {
 	@Override
 	public List<PushCertificationInfo> getPushCertificationList( Page page ) throws PushException {		
 		try {	  
-			page.setTotalCount(getPushCertificationTotalCnt());
+			page.setTotalCount( pushRepository.selectPushCertificationInfoTotalCnt() );
 			
 			return pushRepository.selectPushCertificationInfoList( page );
 		} catch (Exception e) {
@@ -55,15 +55,6 @@ public class PushCertificationServiceImpl implements IPushCertificationService {
 		}
 	}
 	
-	@Override
-	public int getPushCertificationTotalCnt() throws PushException {
-		try {	  
-			return pushRepository.selectPushCertificationInfoTotalCnt();
-		} catch (Exception e) {
-			throw new PushException(PushError.INTERNAL_ERROR, e);
-		}
-	}
-
 	@Override
 	public int modifyPushCertification( PushCertificationParam pushCertificationParam ) throws PushException {
 		try {
