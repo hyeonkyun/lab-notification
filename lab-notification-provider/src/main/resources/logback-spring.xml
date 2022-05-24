@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true" scanPeriod="30 seconds" >
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+	<springProperty scope="context" name="springAppName" source="spring.application.name" />
+
+	<!-- console log -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoders are by default assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+		<encoder>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="rollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender" >
+		<prudent>true</prudent>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/lab-notification-provider.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Async console Log -->
+	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>10000</queueSize>
+		<includeCallerData>true</includeCallerData>
+		<appender-ref ref="rollingFileAppender" />
+	</appender>
+
+	<springProfile name="local">
+		<logger name="org.springframework" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="org.apache.commons" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="org.apache.http" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<!-- Root Logger -->
+		<root level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>
+
+	<springProfile name="dev">
+		<logger name="org.springframework" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="org.apache.commons" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="org.apache.http" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</logger>
+	
+		<!-- Root Logger -->
+		<root level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>
+
+	<springProfile name="product">
+		<logger name="org.springframework" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+		</logger>
+	
+		<logger name="org.apache.commons" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+		</logger>
+	
+		<logger name="org.apache.http" level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+		</logger>
+	
+		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+			<appender-ref ref="ASYNC" />
+		</logger>
+	
+		<!-- Root Logger -->
+		<root level="WARN" additivity="false">
+			<appender-ref ref="ASYNC" />
+		</root>
+	</springProfile>
+
+</configuration>

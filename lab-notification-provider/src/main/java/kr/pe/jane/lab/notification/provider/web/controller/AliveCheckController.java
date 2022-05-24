@@ -1,4 +1,4 @@
-package kr.pe.jane.notification.web.controller;
+package kr.pe.jane.lab.notification.provider.web.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import kr.pe.jane.notification.common.exception.PushError;
-import kr.pe.jane.notification.web.dto.PushResponse;
+import kr.pe.jane.lab.notification.provider.common.exception.PushError;
+import kr.pe.jane.lab.notification.provider.web.dto.PushTransmitResponse;
+
 
 @RestController
 public class AliveCheckController {
@@ -20,11 +21,11 @@ public class AliveCheckController {
     private String serviceMode; 
 
 	@RequestMapping( value = "/alive", method = RequestMethod.GET )
-	public PushResponse aliveCheck( HttpServletRequest request ) throws Exception {
+	public PushTransmitResponse aliveCheck( HttpServletRequest request ) throws Exception {
 		
 		Map<String, Object> responseBody = new HashMap<String, Object>();	
 		responseBody.put("serverMode", serviceMode);
 		
-		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
+		return new PushTransmitResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
 	}
 }

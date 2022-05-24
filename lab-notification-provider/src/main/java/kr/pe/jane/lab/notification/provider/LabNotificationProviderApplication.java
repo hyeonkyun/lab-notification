@@ -1,9 +1,13 @@
-package kr.pe.jane.labnotificationprovider;
+package kr.pe.jane.lab.notification.provider;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
+@EnableAsync
 @SpringBootApplication
+@ComponentScan( "kr.pe.jane.lab.notification.provider" )
 public class LabNotificationProviderApplication {
 
 	public static void main(String[] args) {

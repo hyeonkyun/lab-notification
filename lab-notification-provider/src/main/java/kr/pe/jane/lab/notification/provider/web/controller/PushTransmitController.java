@@ -1,0 +1,41 @@
+package kr.pe.jane.lab.notification.provider.web.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.pe.jane.lab.notification.provider.common.exception.PushError;
+import kr.pe.jane.lab.notification.provider.service.IPushTransmitService;
+import kr.pe.jane.lab.notification.provider.web.dto.PushTransmitParam;
+import kr.pe.jane.lab.notification.provider.web.dto.PushTransmitResponse;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RestController
+@RequestMapping( value = "/fcm/transmit" )
+public class PushTransmitController {
+
+	@Inject
+	private IPushTransmitService pushTransmitService ;
+	
+	@RequestMapping( value = "/token", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+	public PushTransmitResponse pushTransmit( @RequestBody PushTransmitParam pushTransmitParam, HttpServletRequest request ) throws Exception {
+		Map<String, Object> responseBody = new HashMap<String, Object>();
+		
+		log.info( pushTransmitParam.toString() );
+		
+		pushTransmitService.transmit( pushTransmitParam );
+		
+		return new PushTransmitResponse( PushError.OK, PushError.toMessage( PushError.OK ), responseBody );
+	}
+	
+}
+	
