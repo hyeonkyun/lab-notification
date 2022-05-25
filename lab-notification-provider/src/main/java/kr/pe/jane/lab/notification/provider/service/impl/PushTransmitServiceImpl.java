@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import kr.pe.jane.lab.notification.provider.service.IPushTransmitService;
 import kr.pe.jane.lab.notification.provider.transmitter.PushTransmitter;
+import kr.pe.jane.lab.notification.provider.transmitter.task.PushTransmitTask;
+import kr.pe.jane.lab.notification.provider.transmitter.task.PushTransmitTaskManager;
 import kr.pe.jane.lab.notification.provider.web.dto.PushTransmitParam;
 
 @Service
