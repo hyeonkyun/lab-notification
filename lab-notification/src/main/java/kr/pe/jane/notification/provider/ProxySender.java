@@ -22,11 +22,11 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-import kr.pe.jane.notification.common.PushTransmitReq;
-import kr.pe.jane.notification.common.PushTransmitReq.PushTransmit;
 import kr.pe.jane.notification.common.constants.TargetType;
 import kr.pe.jane.notification.domain.model.PushCertificationInfo;
 import kr.pe.jane.notification.domain.model.PushTokenInfo;
+import kr.pe.jane.notification.domain.model.PushTransmitReq;
+import kr.pe.jane.notification.domain.model.PushTransmitReq.PushTransmit;
 import kr.pe.jane.notification.domain.repository.IPushTransmitRepository;
 import kr.pe.jane.notification.web.dto.PushTransmitParam;
 import lombok.extern.slf4j.Slf4j;

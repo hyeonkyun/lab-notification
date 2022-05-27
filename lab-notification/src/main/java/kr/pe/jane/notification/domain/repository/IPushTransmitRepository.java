@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.transaction.annotation.Transactional;
 
-import kr.pe.jane.notification.common.PushTransmitReq;
-import kr.pe.jane.notification.common.PushTransmitReq.PushTransmit;
+import kr.pe.jane.notification.domain.model.PushTransmitReq;
+import kr.pe.jane.notification.domain.model.PushTransmitReq.PushTransmit;
 import kr.pe.jane.notification.web.dto.PushTraceParam;
 
 @Mapper

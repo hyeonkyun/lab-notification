@@ -1,4 +1,4 @@
-package kr.pe.jane.notification.common;
+package kr.pe.jane.notification.domain.model;
 
 import java.util.Date;
 import java.util.List;

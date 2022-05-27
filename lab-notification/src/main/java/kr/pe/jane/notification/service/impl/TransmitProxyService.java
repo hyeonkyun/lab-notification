@@ -36,6 +36,7 @@ public class TransmitProxyService implements ITransmitProxyService {
 	
 	@Override
 	public void transmit(PushTransmitParam pushTransmitParam) throws PushException {
+		
 		PushCertificationInfo pushCertificationInfo = pushRepository.selectPushCertificationInfo( pushTransmitParam.getAppId() );
 		pushTransmitRepository.insertPushTransmitReq( PushTransmitReqDataHolder.getRequestData() );
 		

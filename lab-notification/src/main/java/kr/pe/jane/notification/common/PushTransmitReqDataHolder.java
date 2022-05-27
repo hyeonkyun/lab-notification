@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import kr.pe.jane.notification.common.utils.ConvertUtils;
+import kr.pe.jane.notification.domain.model.PushTransmitReq;
 import kr.pe.jane.notification.web.dto.PushTransmitParam;
 
 public class PushTransmitReqDataHolder {

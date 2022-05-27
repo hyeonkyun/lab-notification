@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.pe.jane.notification.domain.repository.IPushTransmitRepository">
+
+	<resultMap id="PushTransmitReqMap" type="kr.pe.jane.notification.domain.model.PushTransmitReq">
+	    <collection property="pushTransmits" column="{transmitReqId=TRANSMIT_REQ_ID}" select="selectPushTransmit" />
+	</resultMap>
+	
+	<select id="selectPushTransmitReq" parameterType="kr.pe.jane.notification.web.dto.PushTraceParam" resultMap="PushTransmitReqMap"  >
+    	SELECT * 
+    	  FROM TB_PUSH_TRANSMIT_REQ
+    	 WHERE 1=1    	 
+    	   AND APP_ID = #{appId}
+		<if test="fromDate != null and fromDate != ''">
+		   AND REQ_DT <![CDATA[ > ]]> #{fromDate}
+		</if>
+		<if test="toDate != null and toDate != ''">
+		   AND REQ_DT <![CDATA[ < ]]> #{toDate}
+		</if>
+		LIMIT #{page.offset}, #{page.size}
+    </select>
+	
+	<select id="selectPushTransmit" resultType="kr.pe.jane.notification.domain.model.PushTransmitReq$PushTransmit">
+    	SELECT * 
+    	  FROM TB_PUSH_TRANSMIT
+    	 WHERE TRANSMIT_REQ_ID = #{transmitReqId}
+    </select>
+    
+	<insert id="insertPushTransmitReq" parameterType="kr.pe.jane.notification.domain.model.PushTransmitReq">
+		INSERT INTO TB_PUSH_TRANSMIT_REQ
+		(
+			TRANSMIT_REQ_ID, 
+			APP_ID, 
+			TRANSMIT_REQ_PARAM, 
+			REQ_IP, 
+			REQ_DT, 
+			ERR_MSG
+		) VALUES (
+			#{transmitReqId},  
+			#{appId},
+			#{transmitReqParam},  
+			#{reqIp},  			  
+			#{reqDt},
+			#{errMsg}
+		)
+	</insert>
+	
+	<update id="updatePushTransmitReqErrMsg" parameterType="kr.pe.jane.notification.domain.model.PushTransmitReq">
+		UPDATE TB_PUSH_TRANSMIT_REQ
+		   SET ERR_MSG = #{errMsg}
+		 WHERE TRANSMIT_REQ_ID = #{transmitReqId}
+	</update>
+	
+	<insert id="insertPushTransmit" parameterType="kr.pe.jane.notification.domain.model.PushTransmitReq">
+		INSERT INTO TB_PUSH_TRANSMIT
+		(
+			TRANSMIT_REQ_ID, 
+			TARGET, 
+			TARGET_TYPE, 
+			ACCOUNT_ID, 
+			REQ_DATA,
+			REQ_DT
+		) VALUES (
+			#{transmitReqId},  
+			#{target}, 
+			#{targetType}, 
+			#{accountId}, 
+			#{reqData},
+			#{reqDt}
+		)
+	</insert>
+	
+	<update id="updatePushTransmit" parameterType="kr.pe.jane.notification.domain.model.PushTransmitReq$PushTransmit">
+		UPDATE TB_PUSH_TRANSMIT
+		   SET RES_STATUS_CD = #{resStatusCd}, 
+		       RES_DATA = #{resData}, 
+		       END_DT = #{endDt}
+		 WHERE TRANSMIT_REQ_ID = #{transmitReqId}
+		   AND TARGET = #{target}
+	</update>
+	
+</mapper>
