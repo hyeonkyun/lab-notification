@@ -18,6 +18,7 @@
 		
 	<modules>
 		<module>lab-notification</module>
+		<module>lab-notification-provider</module>
 	</modules>
 	
 </project>
