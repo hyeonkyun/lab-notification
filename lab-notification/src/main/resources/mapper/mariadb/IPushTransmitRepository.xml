@@ -6,17 +6,13 @@
 	    <collection property="pushTransmits" column="{transmitReqId=TRANSMIT_REQ_ID}" select="selectPushTransmit" />
 	</resultMap>
 	
-	<select id="selectPushTransmitReq" parameterType="kr.pe.jane.notification.web.dto.PushTraceParam" resultMap="PushTransmitReqMap"  >
+	<select id="selectPushTransmitReq" resultMap="PushTransmitReqMap"  >
     	SELECT * 
     	  FROM TB_PUSH_TRANSMIT_REQ
     	 WHERE 1=1    	 
     	   AND APP_ID = #{appId}
-		<if test="fromDate != null and fromDate != ''">
 		   AND REQ_DT <![CDATA[ > ]]> #{fromDate}
-		</if>
-		<if test="toDate != null and toDate != ''">
 		   AND REQ_DT <![CDATA[ < ]]> #{toDate}
-		</if>
 		LIMIT #{page.offset}, #{page.size}
     </select>
 	

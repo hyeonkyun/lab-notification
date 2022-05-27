@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.pe.jane.notification.domain.model.PushTransmitReq;
 import kr.pe.jane.notification.domain.model.PushTransmitReq.PushTransmit;
-import kr.pe.jane.notification.web.dto.PushTraceParam;
+import kr.pe.jane.notification.web.dto.Page;
 
 @Mapper
 @Transactional(readOnly=true)
@@ -33,5 +33,5 @@ public interface IPushTransmitRepository {
     @Select( "SELECT * FROM TB_PUSH_TRANSMIT_REQ WHERE TRANSMIT_REQ_ID = #{transmitReqId}" )
 	public PushTransmitReq selectPushTransmitReqByTransmitReqId( String transmitReqId );
 	
-	public List<PushTransmitReq> selectPushTransmitReq ( PushTraceParam pushTraceParam );
+	public List<PushTransmitReq> selectPushTransmitReq ( String fromDate, String toDate, Page page );
 }
