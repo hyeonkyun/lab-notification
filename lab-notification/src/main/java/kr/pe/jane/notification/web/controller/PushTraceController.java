@@ -48,7 +48,7 @@ public class PushTraceController {
 		String fromDate = String.format( "%s 00:00:00", _reqDt ); 
 		String toDate = String.format( "%s 23:59:59", _reqDt );
 		
-		log.info( "fromDate : " + fromDate + "toDate : " + toDate + "page : " + page.toString() );
+		log.info( "fromDate : " + fromDate + ", toDate : " + toDate + ", page : " + page.toString() );
 		List<PushTransmitReq> pushTransmitReqList = pushTraceService.getPushTransmitReqList( fromDate, toDate, page );
 		
 		if ( pushTransmitReqList != null && pushTransmitReqList.size() > 0 ) {

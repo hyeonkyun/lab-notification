@@ -10,7 +10,6 @@
     	SELECT * 
     	  FROM TB_PUSH_TRANSMIT_REQ
     	 WHERE 1=1    	 
-    	   AND APP_ID = #{appId}
 		   AND REQ_DT <![CDATA[ > ]]> #{fromDate}
 		   AND REQ_DT <![CDATA[ < ]]> #{toDate}
 		LIMIT #{page.offset}, #{page.size}
