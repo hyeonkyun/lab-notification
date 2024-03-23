@@ -79,7 +79,7 @@
 			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
+		<logger name="kr.pe.hyeonkyun" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
 			<appender-ref ref="console" />
 		</logger>
@@ -124,12 +124,12 @@
 			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
+		<logger name="kr.pe.hyeonkyun" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
 			<appender-ref ref="console" />
 		</logger>
 
-		<logger name="kr.pe.jane.notification.provider" level="DEBUG" additivity="false">
+		<logger name="kr.pe.hyeonkyun.notification.provider" level="DEBUG" additivity="false">
 			<appender-ref ref="interfaceFileAppender" />
 			<appender-ref ref="console" />
 		</logger>
@@ -168,11 +168,11 @@
 			<appender-ref ref="ASYNC" />
 		</logger>
 
-		<logger name="kr.pe.jane" level="DEBUG" additivity="false">
+		<logger name="kr.pe.hyeonkyun" level="DEBUG" additivity="false">
 			<appender-ref ref="ASYNC" />
 		</logger>
 
-		<logger name="kr.pe.jane.notification.provider" level="DEBUG" additivity="false">
+		<logger name="kr.pe.hyeonkyun.notification.provider" level="DEBUG" additivity="false">
 			<appender-ref ref="interfaceFileAppender" />
 		</logger>
 

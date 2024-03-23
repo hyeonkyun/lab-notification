@@ -50,7 +50,7 @@
 			<appender-ref ref="console" />
 		</logger>
 	
-		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+		<logger name="kr.pe.hyeonkyun.notification.provider" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
 			<appender-ref ref="console" />
 		</logger>
@@ -78,7 +78,7 @@
 			<appender-ref ref="console" />
 		</logger>
 	
-		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+		<logger name="kr.pe.hyeonkyun.notification.provider" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
 			<appender-ref ref="console" />
 		</logger>
@@ -103,7 +103,7 @@
 			<appender-ref ref="ASYNC" />
 		</logger>
 	
-		<logger name="kr.pe.jane.lab.notification.provider" level="INFO" additivity="false">
+		<logger name="kr.pe.hyeonkyun.notification.provider" level="INFO" additivity="false">
 			<appender-ref ref="ASYNC" />
 		</logger>
 	

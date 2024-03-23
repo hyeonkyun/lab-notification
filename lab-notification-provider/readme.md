@@ -1,20 +1,14 @@
 # Notification Provider Project 
----
----
+
 ## RESTAPI 명세서
+
 ### FCM push transmit 
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
 | 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 |
-<br>
-
----
----
+   
+---   
 ## RESTAPI 정의서
-### Firebase 서비스 계정 비공개 키 관리
-#### 1. Firebase 서비스 계정 비공개 키 등록  
-```POST http://[ServerIp]:[ServerPort]/[context-path]/push/certification```  
-```Content-Type:application/json```  
 ```
 http://localhost:4000/lab-notification-provider/fcm/transmit/token
 {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.pe.jane.notification.domain.repository.IPushRepository">
+<mapper namespace="kr.pe.hyeonkyun.notification.domain.repository.IPushRepository">
 
-	<insert id="insertPushCertification" parameterType="kr.pe.jane.notification.web.dto.PushCertificationParam">
+	<insert id="insertPushCertification" parameterType="kr.pe.hyeonkyun.notification.web.dto.PushCertificationParam">
 		INSERT INTO TB_PUSH_CERTIFICATION
 		(
 			APP_ID,
@@ -23,7 +23,7 @@
 		)
 	</insert>
 	
-	<update id="updatePushCertification" parameterType="kr.pe.jane.notification.web.dto.PushCertificationParam">
+	<update id="updatePushCertification" parameterType="kr.pe.hyeonkyun.notification.web.dto.PushCertificationParam">
 		UPDATE TB_PUSH_CERTIFICATION
 		   SET PMS_CD = #{pmsCd}, 
 		       PROJECT_ID = #{projectId}, 
@@ -34,7 +34,7 @@
 		 WHERE APP_ID = #{appId}
 	</update>
 	
-	<insert id="insertPushToken" parameterType="kr.pe.jane.notification.web.dto.PushTokenParam">
+	<insert id="insertPushToken" parameterType="kr.pe.hyeonkyun.notification.web.dto.PushTokenParam">
 		INSERT INTO TB_PUSH_TOKEN 
 		(
 			APP_ID, 
