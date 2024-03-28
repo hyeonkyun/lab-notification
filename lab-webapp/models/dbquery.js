@@ -27,37 +27,14 @@ exports.checkUserAuth = function (req, userId, password, done) {
 			return done(null, false, {message : req.flash('loginMessage', '계정이 존재하지 않습니다.')});
         } else {
 			if(rows[0].STATUS_CD === '4') { // 상태코드 (0:요청전, 1:등록요청, 2:등록취소, 3:반려, 4:등록승인)
-				if(bcrypt.compareSync(password, rows[0].PASSWORD)){
-						//insertAuthAccessLogData({ USER_NAME : rows[0].USER_NAME, AUTH_ACTION : 'login', AUTH_RESULT : 'success', AUTH_RESPONSE : '로그인 성공했습니다', PROJECT_ID: rows[0].PROJECT_ID });
-						return done(null, rows[0]);						
+				if(bcrypt.compareSync(password, rows[0].PASSWORD)) {
+					return done(null, rows[0]);						
 				} else {
-					//insertAuthAccessLogData({ USER_NAME : rows[0].USER_NAME, AUTH_ACTION : 'login', AUTH_RESULT : 'fail', AUTH_RESPONSE : '비밀번호가 일치하지 않습니다', PROJECT_ID: rows[0].PROJECT_ID  });
 					return done(null, false, {messages : req.flash('loginMessage', '비밀번호가 일치하지 않습니다.')});					
 				}
-			} else {
-				//insertAuthAccessLogData({ USER_NAME : rows[0].USER_NAME, AUTH_ACTION : 'login', AUTH_RESULT : 'fail', AUTH_RESPONSE : '미승인 사용자입니다' });
+			} else {				
 				return done(null, false, {messages : req.flash('loginMessage', '미승인 사용자입니다. 관리자에게 문의하십시오.')});
 			}
 		}
 	});
-};
-
-function insertAuthAccessLogData( param ) {
-    var sql = util.format("INSERT INTO access_log (user_name, auth_action, auth_result, auth_response, project_id) VALUES ('%s', '%s', '%s', '%s', %d)", 
-							param.USER_NAME, param.AUTH_ACTION, param.AUTH_RESULT, param.AUTH_RESPONSE, param.PROJECT_ID);
-    db.executeSql(sql, function (data, err){
-        if(err){
-            //console.log(err);
-        }
-    });
-};
-
-exports.insertAuthAccessLogData = function( param ) {
-    var sql = util.format("INSERT INTO access_log (user_name, auth_action, auth_result, auth_response, project_id) VALUES ('%s', '%s', '%s', '%s', %d)", 
-							param.USER_NAME, param.AUTH_ACTION, param.AUTH_RESULT, param.AUTH_RESPONSE, param.PROJECT_ID);
-    db.executeSql(sql, function (data, err){
-        if(err){
-            //console.log(err);
-        }
-    });
 };

@@ -20,78 +20,7 @@
           box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
       </style> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
-        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-messaging.js";
-        
-        const firebaseConfig = {
-            apiKey: "AIzaSyAUsQ-A3gpEnCmCDpjnGMk8o_YLah6_gZ4",
-            authDomain: "lab-smartwork.firebaseapp.com",
-            projectId: "lab-smartwork",
-            storageBucket: "lab-smartwork.appspot.com",
-            messagingSenderId: "609068148387",
-            appId: "1:609068148387:web:075d9d612ec1d7e0048116",
-            measurementId: "G-9FKQFSF31D"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const messaging = getMessaging(app);
-
-        $(document).ready(function() {
-            Notification.requestPermission().then((permission) => {
-                if (permission === 'granted') {
-                    console.log('Notification permission granted.');
-                    // 여기에서 FCM 토큰 가져오는 로직을 호출할 수 있습니다.
-                    // FCM 토큰 가져오기
-                    getToken(messaging, { vapidKey: 'BHUCeS3BwjMTAeXnhuwLEJDSqPFIDrwPeNpLOhEDQt4t5dgq8SqE4KbgnfT2J3vGCLIzOY3faU58XvTBHjKA9Tg' }).then((currentToken) => {                        
-                        if (currentToken) {
-                            console.log('FCM Token:', currentToken);                        
-                            // Send the token to your server and update the UI if necessary
-                            // 전송할 JSON 데이터
-                            var postData = {
-                                "appId": 'WEBPUSH001',
-                                "accountId": 'labuser',
-                                "token": currentToken
-                            };
-
-                            // JSON 데이터를 문자열로 변환
-                            var jsonData = JSON.stringify(postData);
-
-                            // POST 요청 보내기
-                            $.ajax({
-                                url: 'http://localhost:9090/lab-notification/push/token',  
-                                method: 'POST',
-                                contentType: 'application/json', // 요청 헤더에 JSON 데이터임을 명시
-                                data: jsonData, // 문자열로 변환된 JSON 데이터를 전송                                
-                                success: function(response) {
-                                    console.log('응답:', JSON.stringify(response));
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('에러:', error);
-                                }
-                            });
-                        } else {
-                        // Show permission request UI
-                        console.log('No registration token available. Request permission to generate one.');                        
-                        }
-                    }).catch((err) => {
-                        console.log('An error occurred while retrieving token. ', err);                    
-                    });
-                } else {
-                    console.log('Unable to get permission for notifications.');
-                }
-            });
-        });
-
-        onMessage(messaging, (payload) => {
-            alert(payload.notification.title + "\n" + payload.notification.body);        
-        });
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
   </head>
   <body>
     <div class="container">

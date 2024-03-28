@@ -15,7 +15,7 @@ JAVA, springBoot
 관리자 웹 어플리케이션 프로젝트   
 node.js, javascript, express, ejs, mariaDB
 
-## lab-public 
-알림 클라이언트 샘플 기능 구현   
-html, javascript
+## lab-smartwork
+알림 클라이언트 샘플 기능 구현 
+html, javascript, firebase hosting(lab-smartwork.web.app)
 

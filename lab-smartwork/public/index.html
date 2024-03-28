@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>lab-smartwork</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 페이지 스타일링을 위한 사용자 정의 CSS */
+        body {
+          background-color: #f8f9fa;
+        }
+        .login-form {
+          max-width: 400px;
+          margin: 100px auto;
+          background-color: #ffffff;
+          padding: 30px;
+          border-radius: 5px;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+      </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-messaging.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyAUsQ-A3gpEnCmCDpjnGMk8o_YLah6_gZ4",
+            authDomain: "lab-smartwork.firebaseapp.com",
+            projectId: "lab-smartwork",
+            storageBucket: "lab-smartwork.appspot.com",
+            messagingSenderId: "609068148387",
+            appId: "1:609068148387:web:075d9d612ec1d7e0048116",
+            measurementId: "G-9FKQFSF31D"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const messaging = getMessaging(app);
+
+        let isPermission;
+        
+        $(document).ready(function() {
+            Notification.requestPermission().then((permission) => {
+                if (permission === 'granted') {
+                    console.log('Notification permission granted.');
+                    isPermission = true;
+                    
+                    // FCM 토큰 가져오기
+                    getToken(messaging, { vapidKey: 'BHUCeS3BwjMTAeXnhuwLEJDSqPFIDrwPeNpLOhEDQt4t5dgq8SqE4KbgnfT2J3vGCLIzOY3faU58XvTBHjKA9Tg' }).then((currentToken) => {                        
+                        if (currentToken) {
+                            console.log('FCM Token:', currentToken);                        
+                            $('#token').val(currentToken) 
+                        } else {
+                        // Show permission request UI
+                        console.log('No registration token available. Request permission to generate one.');  
+                        }
+                    }).catch((err) => {                        
+                        console.log('An error occurred while retrieving token. ', err);                    
+                    });
+                } else {
+                    isPermission = false;
+                    console.log('Unable to get permission for notifications.');
+                }
+            });
+        });
+
+        onMessage(messaging, (payload) => {
+            alert(payload.notification.title + "\n" + payload.notification.body);        
+        });
+
+      $('#registerForm').submit(function(event) {
+        event.preventDefault(); // 기본 제출 이벤트 방지        
+        let appId = $('#appId').val();
+        let userId = $('#userId').val();
+        let token = $('#token').val();
+        
+        if(isPermission === false) {
+            alert('알림 권한 없음.');
+            return;
+        }
+
+        if(appId === '' || userId === '' || token === '') {
+            alert('필수 입력 값 누락.');
+            return;
+        }
+
+        var postData = { "appId": appId,"accountId": userId, "token": token };
+
+        // JSON 데이터를 문자열로 변환
+        var jsonData = JSON.stringify(postData);
+        console.log('jsonData : ' + jsonData)
+        // POST 요청 보내기
+        $.ajax({
+            url: 'http://localhost:9090/lab-notification/push/token',  
+            method: 'POST',
+            contentType: 'application/json', // 요청 헤더에 JSON 데이터임을 명시
+            data: jsonData, // 전송할 데이터
+            success: function(response) {                
+                console.log('응답:', JSON.stringify(response));
+                alert('등록 성공');
+            },
+            error: function(xhr, status, error) {
+                console.error('에러:', error);
+                alert('등록 실패');
+            }
+        });        
+      });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+          <h2 class="text-center mb-4">Token등록 Client</h2>
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="appId">앱ID</label>
+              <input type="text" class="form-control" id="appId" name="appId" value="WEBPUSH001" required>
+            </div>
+            <div class="form-group">
+              <label for="userId">사용자ID</label>
+              <input type="text" class="form-control" id="userId" name="userId" value="semi" required>
+            </div>
+            <div class="form-group">
+              <label for="token">푸쉬Token</label>
+              <input type="text" class="form-control" id="token" name="token" readonly>
+            </div>            
+            <button type="submit" class="btn btn-primary btn-block">토큰등록</button>
+          </form>
+        </div>
+    </div>
+</body>
+</html>
