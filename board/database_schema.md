@@ -69,43 +69,16 @@ CREATE TABLE `TB_PUSH_TRANSMIT` (
 ) ENGINE=InnoDB COMMENT='푸쉬 발송 요청 정보(provider to fcm)' ;
 ``` 
    
-
-
-
-
---- 
+4. web-admin 계정 정보 테이블   
 ```
-maria 5.5 이하 스키마 back up
-
-CREATE TABLE `TB_PUSH_TOKEN` (
-  `APP_ID` varchar(10) NOT NULL COMMENT '앱 ID',
-  `ACCOUNT_ID` varchar(50) NOT NULL COMMENT '계정 ID',
-  `TOKEN` varchar(250) NOT NULL COMMENT 'TOKEN',
-  `USE_YN` char(1) NOT NULL DEFAULT 'Y',
-  `REG_DT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `tb_account` (
+  `USER_ID` varchar(50) NOT NULL COMMENT '사용자ID',
+  `PASSWORD` varchar(128) DEFAULT NULL COMMENT '비밀번호',
+  `STATUS_CD` char(1) DEFAULT '1' COMMENT '상태코드 (0:요청전, 1:등록요청, 2:등록취소, 3:반려, 4:등록승인)',
+  `INS_USER` varchar(50) DEFAULT NULL,
+  `INS_DT` datetime DEFAULT NULL,
+  `UPD_USER` varchar(50) DEFAULT NULL,
   `UPD_DT` datetime DEFAULT NULL,
-  PRIMARY KEY (`APP_ID`,`ACCOUNT_ID`,`TOKEN`)
-) ENGINE=InnoDB COMMENT='푸쉬 토큰 정보' ;
-
-CREATE TABLE `TB_PUSH_TRANSMIT_REQ` (
-  `TRANSMIT_REQ_ID` varchar(50) PRIMARY KEY COMMENT '발송_요청_ID', 
-  `APP_ID` varchar(10) NOT NULL COMMENT '앱 ID',
-  `TRANSMIT_REQ_PARAM` TEXT NOT NULL COMMENT '발송 요청 메시지',
-  `REQ_IP` varchar(20) DEFAULT NULL,
-  `REQ_DT` datetime DEFAULT NULL,
-  `ERR_MSG` TEXT DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='푸쉬 발송 요청 수신 정보(legacy to provider)' ;
-
-CREATE TABLE `TB_PUSH_TRANSMIT` (
-  `TRANSMIT_REQ_ID` varchar(50) NOT NULL COMMENT '발송_요청_ID',
-  `TARGET` varchar(250) DEFAULT NULL COMMENT '타겟',
-  `TARGET_TYPE` varchar(10) DEFAULT NULL COMMENT '타겟_타입(token|batch|topic|condition)',
-  `ACCOUNT_ID` varchar(50) DEFAULT NULL COMMENT '계정_ID',
-  `REQ_DATA` TEXT DEFAULT NULL COMMENT '요청_데이터',  
-  `RES_STATUS_CD` smallint DEFAULT NULL COMMENT '응답_상태_코드',
-  `RES_DATA` TEXT DEFAULT NULL COMMENT '응답_데이터',
-  `REQ_DT` datetime DEFAULT NULL,
-  `END_DT` datetime DEFAULT NULL,
-  PRIMARY KEY (`TRANSMIT_REQ_ID`, `TARGET`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='푸쉬 발송 요청 정보(provider to fcm)' ;
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='계정정보';
 ```
