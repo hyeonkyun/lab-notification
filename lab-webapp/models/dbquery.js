@@ -5,6 +5,7 @@ const moment = require('moment');
 require('moment-timezone');
 moment.tz.setDefault("Asia/Seoul");
 
+// search, create, remove, modify
 exports.createAccount = function(param, callback) {    
     const hash = bcrypt.hashSync(param.password, 10);
     const userId = param.userId;
@@ -14,7 +15,17 @@ exports.createAccount = function(param, callback) {
     db.executeSql(sql, function(rs1, err) {
 		return callback(rs1, err);
 	});
-}
+};
+
+exports.searchAccount = function(param, callback) { 
+    const userId = param.userId;
+    let sql = util.format(`SELECT USER_ID, PASSWORD, STATUS_CD
+	                         FROM tb_account
+							 WHERE USER_ID = '%s'`, userId);	
+    db.executeSql(sql, function(rs1, err) {
+		return callback(rs1, err);
+	});
+};
 
 exports.checkUserAuth = function (req, userId, password, done) {	
 	let sql = util.format(`SELECT USER_ID, PASSWORD, STATUS_CD

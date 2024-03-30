@@ -34,12 +34,29 @@
 
       // 중복 확인 버튼 클릭 시 처리
       $('.btn-check-username').click(function() {
-        var username = $('#userId').val();
-        // 여기에 중복 확인 로직을 추가할 수 있습니다.
-        if (username === '') {
+        var userId = $('#userId').val();        
+        if (userId === '') {
           alert('사용자 ID를 입력하세요.');
         } else {
-          alert('사용자 ID "' + username + '" 은(는) 사용 가능합니다.');
+          // AJAX 요청
+          $.ajax({
+              type: "POST",                // 전송 방식
+              url: "/searchAccount",         // 서버의 요청을 처리하는 경로
+              data: {'userId': userId},  // 전송할 데이터
+              success: function(response) {
+                  console.log(response); // 서버로부터의 응답 출력                
+                  if( response.responseData.length > 0) {
+                      alert('사용자 ID "' + userId + '" 은(는) 사용 불가능합니다.');                    
+                  } else {
+                    alert('사용자 ID "' + userId + '" 은(는) 사용 가능합니다.');
+                  }
+              },
+              error: function(xhr, status, error) {
+                  // 요청이 실패했을 때 실행되는 콜백 함수
+                  console.error(xhr.responseText);               // 에러 메시지 출력
+                  alert('오류가 발생했습니다. 다시 시도해주세요.'); // 에러 메시지 표시
+              }
+          });
         }
       });
 
