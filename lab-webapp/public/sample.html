@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 대시보드</title>
+    <!-- AdminLTE CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">데이터 대시보드</h1>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-end">                                    
+                                    <h3 class="card-title align-self-center mr-auto">조회조건</h3>
+                                    <button type="button" class="btn btn-secondary btn-sm mr-2" id="resetButton">초기화</button> 
+                                    <button type="button" class="btn btn-primary btn-sm mr-2" id="searchButton">조회</button>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="accountId" class="col-sm-1 col-form-label text-right">계정 ID : </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="accountId" placeholder="계정 ID 입력">
+                                    </div>
+                                    <label for="status" class="col-sm-1 col-form-label text-right">상태 : </label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" id="status">
+                                            <option>선택하세요</option>
+                                            <option value="active">활성</option>
+                                            <option value="inactive">비활성</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">조회 결과</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>계정 ID</th>
+                                            <th>상태</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 조회 결과가 여기에 표시됩니다 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // 조회 버튼 클릭 이벤트
+        $('#searchButton').click(function(){
+            var accountId = $('#accountId').val();
+            var status = $('#status').val();
+            console.log("계정 ID: ", accountId);
+            console.log("상태: ", status);
+        });
+    
+        // 초기화 버튼 클릭 이벤트
+        $('#resetButton').click(function(){
+            // 입력 필드와 선택 상자 초기화
+            $('#accountId').val('');
+            $('#status').val('');
+        });
+    });
+    </script>
+</body>
+</html>

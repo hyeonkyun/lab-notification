@@ -75,6 +75,7 @@ CREATE TABLE `tb_account` (
   `USER_ID` varchar(50) NOT NULL COMMENT '사용자ID',
   `PASSWORD` varchar(128) DEFAULT NULL COMMENT '비밀번호',
   `STATUS_CD` char(1) DEFAULT '1' COMMENT '상태코드 (0:요청전, 1:등록요청, 2:등록취소, 3:반려, 4:등록승인)',
+  `REQ_REASON` varchar(1000) DEFAULT NULL COMMENT '요청사유',
   `INS_USER` varchar(50) DEFAULT NULL,
   `INS_DT` datetime DEFAULT NULL,
   `UPD_USER` varchar(50) DEFAULT NULL,

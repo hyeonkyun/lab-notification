@@ -2,8 +2,7 @@ const db = require("../models/dbquery");
 
 const responseJSON = {
     responseCode: '1000',
-    responseMessage: 'OK',
-    responseData: ''
+    responseMessage: 'OK'
 };
 
 exports.craeteAccount = function (req, res) {
@@ -31,5 +30,18 @@ exports.searchAccount = function (req, res) {
     });
 };
     
+exports.searchAccountList = function (req, res) { 
+    db.searchAccountList(req.body, function (data, err) {
+        if(err){
+            console.log("db.searchAccountList error : " + err);
+        } else {
+            res.writeHead(200, {'Content-Type': 'application/json'});
+            responseJSON.responseData = data;       
+            console.log(JSON.stringify(responseJSON));    
+            res.end(JSON.stringify(responseJSON)); 
+        }
+    }); 
+};
+
 
 

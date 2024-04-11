@@ -15,6 +15,8 @@ router.post('/createAccount', accountController.craeteAccount);
 
 router.post('/searchAccount', accountController.searchAccount);
 
+router.post('/searchAccountList', accountController.searchAccountList);
+
 router.get('/login', function (req, res) {
     res.render('login', {messages:req.flash('loginMessage')});
 });

@@ -27,6 +27,8 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
   <script>
     $(document).ready(function() {
+      let isExist = false;
+
       // 토글 버튼 클릭 시 로그인 폼으로 이동
       $('#backBtn').click(function() {
         window.location.href = "/"; // 로그인 페이지로 이동
@@ -47,8 +49,11 @@
                   console.log(response); // 서버로부터의 응답 출력                
                   if( response.responseData.length > 0) {
                       alert('사용자 ID "' + userId + '" 은(는) 사용 불가능합니다.');                    
+                      isExist = false;
                   } else {
                     alert('사용자 ID "' + userId + '" 은(는) 사용 가능합니다.');
+                      isExist = true;
+                      $('#userId').attr('readonly', true);
                   }
               },
               error: function(xhr, status, error) {
