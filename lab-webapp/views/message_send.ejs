@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <%- include("./common_include.ejs"); %>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <!-- Navbar  -->
+    <%- include("./common_navbar.ejs"); %>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <%- include("./common_sidebar.ejs"); %>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>FCM 메시지 발송</h1>
+                </div>
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">메시지 관리</a></li>
+                    <li class="breadcrumb-item active">FCM 서비스 관리</li>
+                  </ol>
+                </div>
+              </div>
+            </div><!-- /.container-fluid -->
+          </section>
+
+          <!-- Main content -->
+          <section class="content">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Send message</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <form>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- select -->
+                      <div class="form-group">
+                        <label>App Id</label>
+                        <select class="form-control">
+                          <option>option 1</option>
+                          <option>option 2</option>
+                          <option>option 3</option>
+                          <option>option 4</option>
+                          <option>option 5</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Account Id</label>
+                        <input type="text" class="form-control" placeholder="Enter ...">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- text input -->
+                      <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" placeholder="Enter ...">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <!-- textarea -->
+                      <div class="form-group">
+                        <label>Message</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                  </div>
+
+                </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+          </section>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+
+        <!-- Main Footer -->
+        <%- include("./common_footer.ejs"); %>
+  </div>
+  <!-- ./wrapper -->
+  <script>
+    $(document).ready(function () {
+
+
+    }
+    )
+  </script>
+</body>
+
+</html>

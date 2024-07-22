@@ -28,12 +28,18 @@ router.post('/login', passport.authenticate('login', {
 }));
 
 router.get('/main', isLoggedIn, function (req, res) {    
-    res.render('main', {index : 'main', user: req.user});
+    //res.render('main', {index : 'main', user: req.user});
+    res.render('message_send', {index : 'main', user: req.user});
 });
 
 router.get('/account', isLoggedIn, function (req, res) {    
     res.render('account', {index : 'account', user: req.user});
 });
+
+router.get('/message/send', isLoggedIn, function (req, res) {    
+    res.render('message_send', {index : 'account', user: req.user});
+});
+
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {

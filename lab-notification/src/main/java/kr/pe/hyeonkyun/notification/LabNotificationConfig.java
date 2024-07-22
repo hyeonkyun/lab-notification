@@ -31,6 +31,9 @@ public class LabNotificationConfig implements WebMvcConfigurer {
 		executor.setQueueCapacity(100000);
 		executor.setThreadNamePrefix("PushTask-");
 		executor.initialize();
+		
+//		ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
+//        return new ExecutorServiceTaskExecutor(executorService);
 
 		return executor;
 	}

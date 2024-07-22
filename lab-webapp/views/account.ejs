@@ -1,216 +1,219 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <%- include("./common_include.ejs"); %>
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  <%- include("./common_navbar.ejs"); %>
-  <!-- /.navbar -->
+  <div class="wrapper">
+    <!-- Navbar -->
+    <%- include("./common_navbar.ejs"); %>
+      <!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <%- include("./common_sidebar.ejs"); %>
-  
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-2">관리자 계정 관리</h1>
-          </div>          
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item">시스템 관리</li>
-              <li class="breadcrumb-item">계정 관리</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
+      <!-- Main Sidebar Container -->
+      <%- include("./common_sidebar.ejs"); %>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card mb-2">
-              <div class="card-header">
-                <div class="d-flex justify-content-end">                                    
-                    <h3 class="card-title align-self-center mr-auto">조회조건</h3>
-                    <button type="button" class="btn btn-secondary btn-sm mr-2" id="resetButton">초기화</button> 
-                    <button type="button" class="btn btn-primary btn-sm mr-2" id="searchButton">조회</button>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-2">관리자 계정 관리</h1>
+                </div>
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">시스템 관리</a></li>
+                    <li class="breadcrumb-item">계정 관리</li>
+                  </ol>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="row">
-                    <label for="userId" class="col-sm-2 col-form-label text-right">사용자ID : </label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="userId" placeholder="계정 ID 입력">
+            </div><!-- /.container-fluid -->
+          </section>
+
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <div class="card mb-2">
+                    <div class="card-header">
+                      <div class="d-flex justify-content-end">
+                        <h3 class="card-title align-self-center mr-auto">조회조건</h3>
+                        <button type="button" class="btn btn-secondary btn-sm mr-2" id="resetButton">초기화</button>
+                        <button type="button" class="btn btn-primary btn-sm mr-2" id="searchButton">조회</button>
+                      </div>
                     </div>
-                    <label for="statusCd" class="col-sm-2 col-form-label text-right">계정상태 : </label>
-                    <div class="col-sm-4">
-                        <select class="form-control" id="statusCd">
+                    <div class="card-body">
+                      <div class="row">
+                        <label for="userId" class="col-sm-2 col-form-label text-right">사용자ID : </label>
+                        <div class="col-sm-4">
+                          <input type="text" class="form-control" id="userId" placeholder="계정 ID 입력">
+                        </div>
+                        <label for="statusCd" class="col-sm-2 col-form-label text-right">계정상태 : </label>
+                        <div class="col-sm-4">
+                          <select class="form-control" id="statusCd">
                             <option value="0">선택하세요</option>
                             <option value="1" selected>등록요청</option>
                             <option value="2">요청취소</option>
                             <option value="3">요청반려</option>
                             <option value="4">승인완료</option>
-                        </select>
+                          </select>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+
+                  <div class="card">
+                    <div class="card-header bg-info">
+                      <h3 class="card-title">조회결과</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th style="width: 15%">사용자ID</th>
+                            <th style="width: 20%">계정상태</th>
+                            <th style="width: 20%">요청일자</th>
+                            <th style="width: 45%">요청사유</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                          <!-- AJAX로 받아온 데이터가 여기에 동적으로 삽입됩니다 -->
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                  <div class="card-footer clearfix d-flex justify-content-center">
+                    <ul class="pagination pagination-sm m-0" id="pagination">
+                      <!-- 페이지네이션 버튼이 동적으로 생성될 위치 -->
+                    </ul>
+                    <input type="hidden" id="totalPages" name="totalPages" value="1">
+                    <input type="hidden" id="currentPage" name="currentPage" value="1">
+                  </div>
+                  <!-- /.card -->
                 </div>
+                <!-- /.col -->
               </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                  <h3 class="card-title">조회결과</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th style="width: 15%">사용자ID</th>
-                      <th style="width: 20%">계정상태</th>
-                      <th style="width: 20%">요청일자</th>
-                      <th style="width: 45%">요청사유</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tableBody">
-                    <!-- AJAX로 받아온 데이터가 여기에 동적으로 삽입됩니다 -->
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <div class="card-footer clearfix d-flex justify-content-center">
-              <ul class="pagination pagination-sm m-0" id="pagination">
-                  <!-- 페이지네이션 버튼이 동적으로 생성될 위치 -->
-              </ul>
-              <input type="hidden" id="totalPages" name="totalPages" value="1">
-              <input type="hidden" id="currentPage" name="currentPage" value="1">
-            </div>  
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->          
+              <!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </section>
+          <!-- /.content -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->  
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+          <!-- Control sidebar content goes here -->
+          <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+          </div>
+        </aside>
+        <!-- /.control-sidebar -->
+
+        <!-- Main Footer -->
+        <%- include("./common_footer.ejs"); %>
   </div>
-  <!-- /.content-wrapper -->
+  <!-- ./wrapper -->
+  <script>
+    $(document).ready(function () {
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-    <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
+      const searchAccountList = function () {
+        var userId = $('#userId').val();
+        var statusCd = $('#statusCd').val();
+        var currentPage = $('#currentPage').val();
+        var offset = (currentPage - 1) * 10;
+        $.ajax({
+          type: "POST",               // 전송 방식
+          url: '/searchAccountList',  // 데이터를 요청할 서버의 URL
+          data: { 'userId': userId, 'statusCd': statusCd, 'offset': offset },  // 전송할 데이터
+          success: function (data) { // 요청 성공 시 실행할 함수
+            var tableBody = $("#tableBody");
+            tableBody.empty(); // 테이블 내용 초기화
 
-  <!-- Main Footer -->
-  <%- include("./common_footer.ejs"); %>
-</div>
-<!-- ./wrapper -->
-<script>
-  $(document).ready(function() {     
-
-    const searchAccountList = function() {      
-      var userId = $('#userId').val(); 
-      var statusCd = $('#statusCd').val();      
-      var currentPage = $('#currentPage').val();  
-      var offset = (currentPage - 1) * 10;      
-      $.ajax({
-        type: "POST",               // 전송 방식
-        url: '/searchAccountList',  // 데이터를 요청할 서버의 URL
-        data: {'userId': userId, 'statusCd' : statusCd, 'offset' : offset},  // 전송할 데이터
-        success: function(data) { // 요청 성공 시 실행할 함수
-          var tableBody = $("#tableBody");
-          tableBody.empty(); // 테이블 내용 초기화
-
-          var responseData = data.responseData;  
-          var totalCount = 0;        
-          $.each(responseData, function(index, item) { // 데이터 항목별로 테이블 행 추가
-            totalCount = item.TOTAL_COUNT;
-            var row =  `<tr>
+            var responseData = data.responseData;
+            var totalCount = 0;
+            $.each(responseData, function (index, item) { // 데이터 항목별로 테이블 행 추가
+              totalCount = item.TOTAL_COUNT;
+              var row = `<tr>
                           <td>${item.USER_ID}</td>
                           <td>${item.STATUS_CD_NM}</td>
                           <td>${item.INS_DT}</td>
                           <td>${item.REQ_REASON}</td>
                         </tr>`;
-            tableBody.append(row);
-          });
+              tableBody.append(row);
+            });
 
-          setPagination(totalCount);
-        },
-        error: function(request, status, error) { // 요청 실패 시 실행할 함수
+            setPagination(totalCount);
+          },
+          error: function (request, status, error) { // 요청 실패 시 실행할 함수
             console.error("searchAccountList error: " + status + ", " + error);
-        }
-      });
-    }
-
-    const setPagination = function(totalCount) {
-      var totalPages = $('#totalPages').val(); 
-      if( totalCount > 0 ) {
-        totalPages = Math.ceil(totalCount / 10);
-        $('#totalPages').val(totalPages);
+          }
+        });
       }
-     
-      var currentPage = parseInt($('#currentPage').val());  // 현재 페이지 번호, 실제 애플리케이션에서는 서버로부터 받아오거나 URL에서 추출
 
-      // 페이지네이션 컨테이너 선택
-      var $paginationContainer = $("#pagination");
-      $paginationContainer.empty(); // 초기화
+      const setPagination = function (totalCount) {
+        var totalPages = $('#totalPages').val();
+        if (totalCount > 0) {
+          totalPages = Math.ceil(totalCount / 10);
+          $('#totalPages').val(totalPages);
+        }
 
-      // 이전 페이지 버튼
-      $paginationContainer.append(`<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a></li>`);
+        var currentPage = parseInt($('#currentPage').val());  // 현재 페이지 번호, 실제 애플리케이션에서는 서버로부터 받아오거나 URL에서 추출
 
-      // 페이지 번호 버튼들
-      for (let i = 1; i <= totalPages; i++) {
+        // 페이지네이션 컨테이너 선택
+        var $paginationContainer = $("#pagination");
+        $paginationContainer.empty(); // 초기화
+
+        // 이전 페이지 버튼
+        $paginationContainer.append(`<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage - 1}">&laquo;</a></li>`);
+
+        // 페이지 번호 버튼들
+        for (let i = 1; i <= totalPages; i++) {
           var activeClass = currentPage === i ? 'active' : '';
           $paginationContainer.append(`<li class="page-item ${activeClass}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`);
-      }
+        }
 
-      // 다음 페이지 버튼
-      $paginationContainer.append(`<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a></li>`);
-    };
+        // 다음 페이지 버튼
+        $paginationContainer.append(`<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${currentPage + 1}">&raquo;</a></li>`);
+      };
 
-    // 페이지 버튼 클릭 이벤트 핸들러
-    $("#pagination").on('click', 'a', function(e) {     
-      var selectedPage = $(this).data('page');
-      $('#currentPage').val(selectedPage);
-      searchAccountList();
-      //console.log("Selected Page:", selectedPage); // 선택된 페이지에 대한 처리 로직 구현
-    });
+      // 페이지 버튼 클릭 이벤트 핸들러
+      $("#pagination").on('click', 'a', function (e) {
+        var selectedPage = $(this).data('page');
+        $('#currentPage').val(selectedPage);
+        searchAccountList();
+        //console.log("Selected Page:", selectedPage); // 선택된 페이지에 대한 처리 로직 구현
+      });
 
-    // 조회 버튼 클릭 이벤트
-    $('#searchButton').click(function() {      
-      searchAccountList();
-    });
-  
-    // 초기화 버튼 클릭 이벤트
-    $('#resetButton').click(function(){
+      // 조회 버튼 클릭 이벤트
+      $('#searchButton').click(function () {
+        searchAccountList();
+      });
+
+      // 초기화 버튼 클릭 이벤트
+      $('#resetButton').click(function () {
         $('#userId').val('');
         $('#statusCd').val('');
         $('#currentPage').val('1');
         $('#totalPages').val('1');
         $("#pagination").empty(); // 초기화
         $("#tableBody").empty(); // 테이블 내용 초기화
-    });
+      });
 
-    // 동적으로 생성된 테이블 행에 대한 클릭 이벤트 처리
-    $("#tableBody").on('click', 'tr', function() {
+      // 동적으로 생성된 테이블 행에 대한 클릭 이벤트 처리
+      $("#tableBody").on('click', 'tr', function () {
         var userId = $(this).find('td:eq(0)').text();  // 저장된 데이터를 가져옴
         alert("User ID: " + userId);
-    });        
-  });  
+      });
+    });  
   </script>
 </body>
+
 </html>
