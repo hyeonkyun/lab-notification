@@ -7,10 +7,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.pe.hyeonkyun.notification.common.PushTransmitReqDataHolder;
@@ -31,6 +33,7 @@ public class TransmitProxyController {
 
 	/** | 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 | */
 	@PostMapping( value = "/{appId}/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
+	@CrossOrigin( origins = "*", methods = RequestMethod.POST )	
 	public PushResponse pushTransmitRequestByAppIdAndAccountId( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, @RequestBody PushTransmitParam pushTransmitParam, HttpServletRequest request ) throws Exception {
 		Map<String, Object> responseBody = new HashMap<String, Object>();
 		

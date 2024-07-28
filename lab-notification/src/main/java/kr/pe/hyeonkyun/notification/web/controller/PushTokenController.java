@@ -92,13 +92,7 @@ public class PushTokenController {
 		}
 		
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
-	}
-	
-	
-	
-	
-	
-	
+	} 
 	
 	@RequestMapping(value = "/{appId}/{accountId}", method = { RequestMethod.PUT, RequestMethod.PATCH }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PushResponse pushTokenModify( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, @RequestBody PushTokenParam pushTokenParam, HttpServletRequest request ) throws PushException {

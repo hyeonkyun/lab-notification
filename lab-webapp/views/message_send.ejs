@@ -48,12 +48,8 @@
                       <!-- select -->
                       <div class="form-group">
                         <label>App Id</label>
-                        <select class="form-control">
-                          <option>option 1</option>
-                          <option>option 2</option>
-                          <option>option 3</option>
-                          <option>option 4</option>
-                          <option>option 5</option>
+                        <select id="appId" class="form-control">
+                          <option value="WEBNOTISPL" selected>WEBNOTISPL</option>
                         </select>
                       </div>
                     </div>
@@ -64,7 +60,7 @@
                       <!-- text input -->
                       <div class="form-group">
                         <label>Account Id</label>
-                        <input type="text" class="form-control" placeholder="Enter ...">
+                        <input type="text" id="accountId" class="form-control" value="thiago@naver.com" required>
                       </div>
                     </div>
                   </div>
@@ -74,7 +70,7 @@
                       <!-- text input -->
                       <div class="form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control" placeholder="Enter ...">
+                        <input id="title" type="text" class="form-control" placeholder="타이틀을 입력하세요." required>
                       </div>
                     </div>
                   </div>
@@ -84,13 +80,13 @@
                       <!-- textarea -->
                       <div class="form-group">
                         <label>Message</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        <textarea id="body" class="form-control" rows="3" placeholder="메시지를 입력하세요." required></textarea>
                       </div>
                     </div>
                   </div>
 
                   <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button id="sendMsg" type="submit" class="btn btn-primary">메시지 전송</button>
                   </div>
 
                 </form>
@@ -110,9 +106,41 @@
   <script>
     $(document).ready(function () {
 
+      const sendMsg = function () {
+        let appId = $('#appId').val();
+        let accountId = $('#accountId').val();
+        let title = $('#title').val();
+        let body = $('#body').val(); 
 
-    }
-    )
+        if(title === '' || body === '') {
+            alert('필수 입력 값 누락.');
+            return;
+        }
+
+        let postData = { "notification" : {"title": title, "body": body} };
+        let jsonData = JSON.stringify(postData);
+        
+        $.ajax({
+          type: "POST",  
+          url: "http://localhost:9090/lab-notification/push/transmit/" + appId +"/"+ accountId,  
+          data: jsonData,  
+          contentType: 'application/json', 
+          success: function (response) {
+            alert(response);          
+          },
+          error: function (xhr, status, error) {
+            console.error(xhr.responseText);              
+            alert('오류가 발생했습니다. 다시 시도해주세요.'); 
+          }
+        });
+      }
+
+      // 조회 버튼 클릭 이벤트
+      $('#sendMsg').click(function () {
+        sendMsg();
+      });
+
+    })
   </script>
 </body>
 

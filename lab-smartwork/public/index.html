@@ -115,21 +115,21 @@
 <body>
     <div class="container">
         <div class="login-form">
-          <h2 class="text-center mb-4">Token등록 Client</h2>
+          <h2 class="text-center mb-4">Token Registration</h2>
           <form id="registerForm">
             <div class="form-group">
-              <label for="appId">앱ID</label>
-              <input type="text" class="form-control" id="appId" name="appId" value="WEBPUSH001" required>
+              <label for="appId">앱 아이디 : </label>
+              <input type="text" class="form-control" id="appId" name="appId" value="WEBNOTISPL" readonly>
             </div>
             <div class="form-group">
-              <label for="userId">사용자ID</label>
-              <input type="text" class="form-control" id="userId" name="userId" value="semi" required>
+              <label for="userId">사용자 아이디 : </label>
+              <input type="text" class="form-control" id="userId" name="userId" value="thiago@naver.com" required>
             </div>
             <div class="form-group">
-              <label for="token">푸쉬Token</label>
+              <label for="token">Token : </label>
               <input type="text" class="form-control" id="token" name="token" readonly>
             </div>            
-            <button type="submit" class="btn btn-primary btn-block">토큰등록</button>
+            <button type="submit" class="btn btn-primary btn-block">등록</button>
           </form>
         </div>
     </div>
