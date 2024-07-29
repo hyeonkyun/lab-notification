@@ -5,7 +5,7 @@
 - express
 - ejs
 - maria db
-- bootstrap, edminlte
+- bootstrap, AdminLTE
 
 ## 프로젝트 셋팅
 1. 프로젝트 기본 골격 셋팅
