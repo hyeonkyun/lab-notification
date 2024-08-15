@@ -177,3 +177,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# etc
+firebase/*.json
