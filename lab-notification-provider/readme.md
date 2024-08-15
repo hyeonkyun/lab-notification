@@ -1,14 +1,14 @@
 # Notification Provider Project 
 
-## RESTAPI 명세서
+## REST API 명세서
 
 ### FCM push transmit 
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
-| 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 |
+| 1 | POST    | `/fcm/transmit/token` | pms 메시지 발송 |
    
 ---   
-## RESTAPI 정의서
+## REST API 상세
 ```
 http://localhost:4000/lab-notification-provider/fcm/transmit/token
 {

@@ -1,6 +1,6 @@
 # Notification Management Project 
 
-## RESTAPI 명세서
+## REST API 명세서
 
 ### Firebase 서비스 계정 비공개 키 관리   
 | index | Method | URI | Description | 
@@ -38,7 +38,7 @@
 | 2 | GET     | `/push/trace/{reqDt}/{pageNo}/{size}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) |
    
 ---   
-## RESTAPI 정의서
+## REST API 상세
 
 ### Firebase 서비스 계정 비공개 키 관리
 
