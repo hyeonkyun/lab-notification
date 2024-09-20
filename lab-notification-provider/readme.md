@@ -9,34 +9,39 @@
    
 ---   
 ## REST API 상세
-```
-http://localhost:4000/lab-notification-provider/fcm/transmit/token
-{
-	"transmitReqId": "transReqId01",
-	"projectId": "lab-notification-c8723",
-	"token": "dPYzmClRNsjP9UE60B0mfL:APA91bF9MWTBXfg-AzkBzHT5OSK-zwoEBQz-hdZI-ef2lwiawMvfWFBlXPNzP-Ke8GPE5_LF0kI1c35f3KdLj1M3iBApaixEAqCDj3unYxCn9L98NIhpKPGg-inAmCYbEIsBgV_X8h8F",
-	"certification": {
-		"type": "......",
-		"project_id": "......",
-		"private_key_id": "......",
-		"private_key": "......",
-		"client_email": "......",
-		"client_id": "......",
-		"auth_uri": "......",
-		"token_uri": "......",
-		"auth_provider_x509_cert_url": "......",
-		"client_x509_cert_url": "......"
-	},
-	"notification": {
-		"title": "Lab Message Title",
-		"body": "Lab Message Body",
-		"image": "https://lab-web-notification.firebaseapp.com/jane.png"
-	},
-	"data": {
-		"name": "wrench",
-		"mass": "1.3kg",
-		"count": "3"
-	},
-	"callbackUrl": "http://localhost:9090/lab-notification/callback/provider"
-}
-```
+
+### FCM push transmit 
+
+#### 1. pms 메시지 발송
+
+##### Request :: POST 방식으로 호출
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/fcm/transmit/token```  
+- HTTP Header : ```Content-Type:application/json```  
+- Request Parameter (Http Resquest Body :: Json 형식)
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `transmitReqId` | String | 필수 | 발송 요청 ID |
+| `projectId` | String | 필수 | PMS 프로젝트 ID |
+| `token` | String | 필수 | 토큰 값 |
+| `certification` | Json | 필수 | PMS 계정 비공개 키 |
+| `notification` | Json | 필수 |  |
+| `data` | Json | 필수 | target에 전달할 사용자 정의 데이터 |
+| `callbackUrl` | String | 필수 | 발송 정보 콜백 Url |
+
+##### Response Format :: JOSN 형태로 반환  
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답코드 | “ok”: 성공, 이외: 실패 사유  |
+
+
+## Object 정의
+
+### `notification` (Object Type :: Json 형식)
+| 엘리먼트명 | 타입 | 필수여부 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- |
+| `title` | String | 필수 | 제목 |  |
+| `body` | String | 필수 | 본문 |  |
+| `image` | String |  | 이미지url |  |
+
