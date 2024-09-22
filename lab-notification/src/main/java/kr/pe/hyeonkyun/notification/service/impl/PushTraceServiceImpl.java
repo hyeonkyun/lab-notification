@@ -31,6 +31,7 @@ public class PushTraceServiceImpl implements IPushTraceService {
 	@Override
 	public List<PushTransmitReq> getPushTransmitReqList(String fromDate, String toDate, Page page) throws PushException {
 		try {
+			page.setTotalCount( pushTransmitRepository.selectPushTransmitReqTotalCnt( fromDate, toDate ) );
 			return pushTransmitRepository.selectPushTransmitReq( fromDate, toDate, page );
 		} catch (Exception e) {
 			throw new PushException(PushError.INTERNAL_ERROR, e);

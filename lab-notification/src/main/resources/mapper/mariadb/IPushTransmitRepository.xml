@@ -14,6 +14,14 @@
 		   AND REQ_DT <![CDATA[ < ]]> #{toDate}
 		LIMIT #{page.offset}, #{page.size}
     </select>
+
+	<select id="selectPushTransmitReqTotalCnt" resultType="int"  >
+		SELECT count(*)
+		FROM TB_PUSH_TRANSMIT_REQ
+		WHERE 1=1
+		  AND REQ_DT <![CDATA[ > ]]> #{fromDate}
+		  AND REQ_DT <![CDATA[ < ]]> #{toDate}
+	</select>
 	
 	<select id="selectPushTransmit" resultType="kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq$PushTransmit">
     	SELECT * 

@@ -3,6 +3,7 @@ package kr.pe.hyeonkyun.notification.domain.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,8 @@ public interface IPushTransmitRepository {
 	@ResultMap( "PushTransmitReqMap" )
     @Select( "SELECT * FROM TB_PUSH_TRANSMIT_REQ WHERE TRANSMIT_REQ_ID = #{transmitReqId}" )
 	public PushTransmitReq selectPushTransmitReqByTransmitReqId( String transmitReqId );
-	
+
+	public int selectPushTransmitReqTotalCnt(String fromDate, String toDate);
+
 	public List<PushTransmitReq> selectPushTransmitReq ( String fromDate, String toDate, Page page );
 }

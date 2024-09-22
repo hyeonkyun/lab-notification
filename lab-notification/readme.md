@@ -308,67 +308,169 @@
 | `responseMessage` | String | 1 |  | 응답코드 | “ok”: 성공, 이외: 실패 사유  |
 
 
-
 ### Push 발송 요청 
 
 #### 1. 사용자 별 Push 발송 요청
-```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{accountId}```
-```
-Content-Type:application/json
-{
-    "notification": {
-      "title": "Lab Message Title", 
-      "body": "Lab Message Body",
-      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
-    },
-    "data" : {  -- optional
-      "name": "wrench",
-      "mass": "1.3kg", 
-      "count": "3" 
-    }
-}
-```
 
-#### 2. 앱 별 Push 발송 요청 
-```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}```
-```
-Content-Type:application/json
-{
-    "notification": {
-      "title": "Lab Message Title", 
-      "body": "Lab Message Body",
-      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
-    },
-    "data" : {  -- optional
-      "name": "wrench",
-      "mass": "1.3kg", 
-      "count": "3" 
-    }
-}
-```
+##### Request :: POST 방식으로 호출
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{accountId}```  
+- HTTP Header : ```Content-Type:application/json```  
 
-#### 3. 주제 별 Push 발송 요청
-```POST http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{topic}```
-```
-Content-Type:application/json
-{
-    "notification": {
-      "title": "Lab Message Title", 
-      "body": "Lab Message Body",
-      "image" : "https://lab-web-notification.firebaseapp.com/jane.png"   -- optional
-    },
-    "data" : {  -- optional
-      "name": "wrench",
-      "mass": "1.3kg", 
-      "count": "3" 
-    }
-}
-```
+- Request Parameter (POST 방식, PathVariable)  
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `appId` | String | 필수 | 앱 ID |
+| `accountId` | String | 필수 | 계정 ID |
+
+- Request Parameter (Http Resquest Body :: Json 형식)
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `notification` | Json | 필수 | 알림 정보 |
+| `data` | Json |  | 클라이언트에 전송하는 optional 데이터  |
+
+##### Response Format :: JOSN 형태로 반환  
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답 메시지 | “ok”: 성공, 이외: 실패 사유  |
+| `responseBody` | Json | 1 |  | 응답 코드가 “1000” 성공일 경우, 응답 데이터 |  |
+| `transmitReqId` | String | 2 |  | 발송_요청_ID |  |
+
+
+
+#### 2. 앱 별 Push 발송 요청 (TODO LIST)
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}```  
+- HTTP Header : ```Content-Type:application/json```  
+
+- Request Parameter (POST 방식, PathVariable)  
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `appId` | String | 필수 | 앱 ID | 
+
+- Request Parameter (Http Resquest Body :: Json 형식)
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `notification` | Json | 필수 | 알림 정보 |
+| `data` | Json |  | 클라이언트에 전송하는 optional 데이터  |
+
+##### Response Format :: JOSN 형태로 반환  
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답 메시지 | “ok”: 성공, 이외: 실패 사유  |
+| `responseBody` | Json | 1 |  | 응답 코드가 “1000” 성공일 경우, 응답 데이터 |  |
+| `transmitReqId` | String | 2 |  | 발송_요청_ID |  |
+
+
+#### 3. 주제 별 Push 발송 요청 (TODO LIST)
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/transmit/{appId}/{topic}```  
+- HTTP Header : ```Content-Type:application/json```  
+
+- Request Parameter (POST 방식, PathVariable)  
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `appId` | String | 필수 | 앱 ID | 
+| `topic` | String | 필수 | 주제 | 
+
+- Request Parameter (Http Resquest Body :: Json 형식)
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `notification` | Json | 필수 | 알림 정보 |
+| `data` | Json |  | 클라이언트에 전송하는 optional 데이터  |
+
+##### Response Format :: JOSN 형태로 반환  
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답 메시지 | “ok”: 성공, 이외: 실패 사유  |
+| `responseBody` | Json | 1 |  | 응답 코드가 “1000” 성공일 경우, 응답 데이터 |  |
+| `transmitReqId` | String | 2 |  | 발송_요청_ID |  |
+
 
 ### 로그 관리
 
 #### 1. PUSH 발송 요청 로그 조회(단건) 
-```GET http://[ServerIp]:[ServerPort]/[context-path]/push/trace/{transReqId}```
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/trace/{transReqId}```  
+- Request Parameter (GET 방식, PathVariable)   
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `transReqId` | String | 필수 | 발송_요청_ID | 
+
+##### Response Format :: JOSN 형태로 반환
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답 메시지 | “ok”: 성공, 이외: 실패 사유  |
+| `responseBody` | Json | 1 |  | 응답 코드가 “1000” 성공일 경우, 응답 데이터 |  |
+| `pushTransmitReqInfo` | Json | 2 |  | 전송요청 정보 |  |
+| `transmitReqId` | String | 3 |  | 발송_요청_ID |  |
+| `appId` | String | 3 |  | 앱 ID |  |
+| `transmitReqParam` | String | 3 |  | 전송요청 파라미터 |  |
+| `reqIp` | String | 3 |  | 요청 IP |  |
+| `reqDt` | String | 3 |  | 요청일시 |  |
+| `errMsg` | String | 3 |  | 에러메시지 |  |
+| `pushTransmits` | Json | 3 | 배열 | 타겟 전송 리스트 |  |
+| `transmitReqId` | String | 4 |  | 에러메시지 |  |
+| `target` | String | 4 |  | 타켓 |  |
+| `targetType` | String | 4 |  | 타켓타입 |  |
+| `accountId` | String | 4 |  | 계정 ID |  |
+| `reqData` | String | 4 |  | pms 요청 데이터 |  |
+| `resStatusCd` | String | 4 |  | 응답 코드 |  |
+| `resData` | String | 4 |  | pms 응답 데이터 |  |
+| `reqDt` | String | 4 |  | 요청일시 |  |
+| `endDt` | String | 4 |  | 종료일시 |  |
+
+ 
 
 #### 2. PUSH 발송 요청 로그 조회(리스트 by 요청일자) 
-```GET http://[ServerIp]:[ServerPort]/[context-path]/push/trace/{reqDt}/{pageNo}/{size}```
+- HTTP URL : ```hhttp://[ServerIp]:[ServerPort]/[context-path]/push/trace/{reqDt}/{page}/{size}```  
+- Request Parameter (GET 방식, PathVariable)   
+
+| 파라미터명 | 타입 | 필수여부 | 설명 | 
+| :---: | --- | --- | --- |
+| `reqDt` | String | 필수 | 요청일 | 
+| `page` | Number | 필수 | 페이지번호 |
+| `size` | Number | 필수 | 페이지당 리스트 개수 |
+
+##### Response Format :: JOSN 형태로 반환
+| 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- | --- |
+| `responseCode` | String | 1 |  | 응답코드 | “1000” : 성공(정상), 이외: 실패 |
+| `responseMessage` | String | 1 |  | 응답 메시지 | “ok”: 성공, 이외: 실패 사유  |
+| `responseBody` | Json | 1 |  | 응답 코드가 “1000” 성공일 경우, 응답 데이터 |  |
+| `pushTransmitReqList` | Json | 2 | 배열  | 전송요청 정보 |  |
+| `transmitReqId` | String | 3 |  | 발송_요청_ID |  |
+| `appId` | String | 3 |  | 앱 ID |  |
+| `transmitReqParam` | String | 3 |  | 전송요청 파라미터 |  |
+| `reqIp` | String | 3 |  | 요청 IP |  |
+| `reqDt` | String | 3 |  | 요청일시 |  |
+| `errMsg` | String | 3 |  | 에러메시지 |  |
+| `pushTransmits` | Json | 3 | 배열 | 타겟 전송 리스트 |  |
+| `transmitReqId` | String | 4 |  | 에러메시지 |  |
+| `target` | String | 4 |  | 타켓 |  |
+| `targetType` | String | 4 |  | 타켓타입 |  |
+| `accountId` | String | 4 |  | 계정 ID |  |
+| `reqData` | String | 4 |  | pms 요청 데이터 |  |
+| `resStatusCd` | String | 4 |  | 응답 코드 |  |
+| `resData` | String | 4 |  | pms 응답 데이터 |  |
+| `reqDt` | String | 4 |  | 요청일시 |  |
+| `endDt` | String | 4 |  | 종료일시 |  |
+ 
+---
+## Object 정의
+
+### `notification` (Object Type :: Json 형식)
+| 엘리먼트명 | 타입 | 필수여부 | 설명 | 값 구분 | 
+| :---: | --- | --- | --- | --- |
+| `title` | String | 필수 | 제목 |  |
+| `body` | String | 필수 | 본문 |  |
+| `image` | String |  | 이미지url |  |
+
+---
