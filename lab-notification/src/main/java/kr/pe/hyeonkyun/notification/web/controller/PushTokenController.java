@@ -34,12 +34,7 @@ public class PushTokenController {
 	
 	@Inject
 	IPushTokenService pushTokenService; 
-/*
-| 4 | GET     | `/push/token/{appId}/{accountId}/{page}/{size}` | Token 조회(리스트 by appId, accountId, page, size) |
-| 5 | PUT     | `/push/token/{appId}/{accountId}` | Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId) |
-| 6 | DELETE  | `/push/token/{appId}/{accountId}` | Token 삭제(by appId, accountId) |
-| 7 | DELETE  | `Token 삭제(by appId, accountId, token)` | Token 삭제(by appId, accountId, token) |
-*/	
+
 	/** | 1 | POST    | `/push/token` | App 토큰 등록 | */
 	@PostMapping( value = "/token", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
 	@CrossOrigin(origins = "*", methods = RequestMethod.POST)
@@ -56,7 +51,7 @@ public class PushTokenController {
 	}
 	
 	/** | 2 | GET     | `/push/tokens/{appId}/{page}/{size}` | Token 조회(리스트 by appId) | */
-	@GetMapping( value = "/{appId}/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE )
+	@GetMapping( value = "/tokens/{appId}/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE )
 	public PushResponse pushTokenInfoSearchListByAppId( @PathVariable ("appId") String _appId, @PathVariable ("page") int _page, @PathVariable ("size") int _size, HttpServletRequest request ) throws PushException {
 		Map<String, Object> responseBody = new HashMap<String, Object>();
 		Page page = new Page( _page, _size );
@@ -70,31 +65,26 @@ public class PushTokenController {
 		
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
 	}
-	/** | 3 | GET     | `/push/token/{appId}/{accountId}` | Token 조회(리스트 by appId, accountId) | */
-	@RequestMapping( value = "/{appId}/{accountId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
-	public PushResponse pushTokenInfoSearchListByAppIdAndAccountId( @PathVariable ("appId") String _appId, @PathVariable ("accountId") String _accountId, HttpServletRequest request ) throws PushException {
-		return pushTokenInfoSearchListByAppIdAndAccountId(_appId, _accountId, 1, 10, request );
-	}
-	
-	@RequestMapping(value = "/{appId}/{accountId}/{page}/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	/** | 3 | GET     | `/push/tokens/{appId}/{accountId}/{page}/{size}` | Token 조회(리스트 by appId, accountId, page, size) | */
+	@RequestMapping(value = "/tokens/{appId}/{accountId}/{page}/{size}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PushResponse pushTokenInfoSearchListByAppIdAndAccountId( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, 
 			@PathVariable("page") int _page, @PathVariable("size") int _size, HttpServletRequest request) throws PushException {
 		Map<String, Object> responseBody = new HashMap<String, Object>();
+		Page page = new Page( _page, _size );
 		
-		List<PushTokenInfo> pushTokenInfoList = pushTokenService.getPushTokenList( _appId, _accountId, new Page( _page, _size ) );
-		
-		responseBody.put("page", _page);
-		responseBody.put("size", _size);
-		responseBody.put("total", pushTokenService.getPushTokenTotalCnt( _appId, _accountId ) );
-		
+		List<PushTokenInfo> pushTokenInfoList = pushTokenService.getPushTokenList( _appId, _accountId, page ) ;
+
 		if( pushTokenInfoList != null && pushTokenInfoList.size() > 0 ) {
+			responseBody.put( "pagination", page );
 			responseBody.put( "pushTokenInfoList", pushTokenInfoList ); 
 		}
 		
 		return new PushResponse( PushError.OK, PushError.toMessage(PushError.OK), responseBody );
 	} 
-	
-	@RequestMapping(value = "/{appId}/{accountId}", method = { RequestMethod.PUT, RequestMethod.PATCH }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	/** | 4 | PUT     | `/push/token/{appId}/{accountId}` | Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId) | */
+	@RequestMapping(value = "/token/{appId}/{accountId}", method = { RequestMethod.PUT, RequestMethod.PATCH }, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PushResponse pushTokenModify( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, @RequestBody PushTokenParam pushTokenParam, HttpServletRequest request ) throws PushException {
 		log.debug( pushTokenParam.toString() );
 		
@@ -105,19 +95,20 @@ public class PushTokenController {
 		
 		return new PushResponse( PushError.OK, PushError.toMessage( PushError.OK ) );
 	}
-	
-	@RequestMapping(value = "/{appId}/{accountId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	/** | 5 | DELETE  | `/push/tokens/{appId}/{accountId}` | Token 삭제(by appId, accountId) | */
+	@RequestMapping(value = "/tokens/{appId}/{accountId}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PushResponse pushTokenRemove( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, HttpServletRequest request ) throws PushException {
 		pushTokenService.removePushToken( _appId, _accountId );
 		
 		return new PushResponse( PushError.OK, PushError.toMessage( PushError.OK ) );
 	}
-	
-	@RequestMapping(value = "/{appId}/{accountId}/{token}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	/** | 6 | DELETE  | `/token/{appId}/{accountId}/{token}` | Token 삭제(by appId, accountId, token) | */
+	@RequestMapping(value = "/token/{appId}/{accountId}/{token}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public PushResponse pushTokenRemove( @PathVariable("appId") String _appId, @PathVariable("accountId") String _accountId, @PathVariable("token") String _token, HttpServletRequest request ) throws PushException {
 		pushTokenService.removePushToken( _appId, _accountId, _token );
 		
 		return new PushResponse( PushError.OK, PushError.toMessage( PushError.OK ) );
 	}
-
 }

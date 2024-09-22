@@ -14,9 +14,7 @@ public interface IPushTokenService {
 	public List<PushTokenInfo> getPushTokenList( String appId, Page page ) throws PushException;
 	
 	public List<PushTokenInfo> getPushTokenList( String appId, String accountId, Page page ) throws PushException;
-	
-	//public int getPushTokenTotalCnt( String appId ) throws PushException;
-	
+
 	public int getPushTokenTotalCnt( String appId, String accountId ) throws PushException;
 	
 	public int modifyPushToken( PushTokenParam pushTokenParam ) throws PushException;

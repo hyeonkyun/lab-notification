@@ -43,20 +43,12 @@ public class PushTokenServiceImpl implements IPushTokenService {
 	@Override
 	public List<PushTokenInfo> getPushTokenList( String appId, String accountId, Page page ) throws PushException {
 		try {
+			page.setTotalCount( pushRepository.selectPushTokenInfoListTotalCntWithAccountId( appId, accountId ) );
 			return pushRepository.selectPushTokenInfoListWithAccountId( appId, accountId, page );
 		} catch (Exception e) {
 			throw new PushException(PushError.INTERNAL_ERROR, e);
 		}
 	}
-
-//	@Override
-//	public int getPushTokenTotalCnt( String appId ) throws PushException {
-//		try {
-//			return ;
-//		} catch (Exception e) {
-//			throw new PushException(PushError.INTERNAL_ERROR, e);
-//		}
-//	}
 
 	@Override
 	public int getPushTokenTotalCnt( String appId, String accountId ) throws PushException {
@@ -98,5 +90,4 @@ public class PushTokenServiceImpl implements IPushTokenService {
 			throw new PushException(PushError.INTERNAL_ERROR, e);
 		}
 	}
-
 }
