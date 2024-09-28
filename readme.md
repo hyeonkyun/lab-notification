@@ -13,10 +13,10 @@ Java, springBoot, mariaDB
 [Restful API 연동 규격서](https://github.com/hyeonkyun/lab/blob/main/lab-notification-provider/readme.md)   
 Java, springBoot
 
-## [lab-webapp](https://github.com/hyeonkyun/lab/tree/main/lab-webapp) 
+## [lab-web-admin](https://github.com/hyeonkyun/lab/tree/main/lab-web-admin) 
 관리자 웹 어플리케이션 프로젝트   
 node.js, javascript, express, ejs, mariaDB
 
-## lab-smartwork 
+## lab-webapp
 알림 클라이언트 샘플 기능 구현 
 html, javascript, firebase hosting(lab-smartwork.web.app)
