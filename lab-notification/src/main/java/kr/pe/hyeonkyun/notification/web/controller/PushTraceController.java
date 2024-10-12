@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping( value = "/push/trace" )
 public class PushTraceController {
 	
-	@Inject
-	private IPushTraceService pushTraceService;
+	private final IPushTraceService pushTraceService;
+
+	@Autowired
+	public PushTraceController( IPushTraceService pushTraceService ) {
+		this.pushTraceService = pushTraceService;
+	}
 	
 	/** | 1 | GET     | `/push/trace/{transReqId}` | PUSH 발송 요청 로그 조회(단건) | */
 	@GetMapping( value = "/{transReqId}", produces = MediaType.APPLICATION_JSON_VALUE )
@@ -50,7 +54,7 @@ public class PushTraceController {
 		log.info( "fromDate : " + fromDate + ", toDate : " + toDate + ", page : " + page.toString() );
 		List<PushTransmitReq> pushTransmitReqList = pushTraceService.getPushTransmitReqList( fromDate, toDate, page );
 		
-		if ( pushTransmitReqList != null && pushTransmitReqList.size() > 0 ) {
+		if ( pushTransmitReqList != null && !pushTransmitReqList.isEmpty()) {
 			responseBody.put( "pagination", page );
 			responseBody.put( "pushTransmitReqList", pushTransmitReqList );
 		}

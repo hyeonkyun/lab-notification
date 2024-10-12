@@ -2,7 +2,7 @@ package kr.pe.hyeonkyun.notification.common;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

@@ -2,8 +2,7 @@ package kr.pe.hyeonkyun.notification.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.common.exception.PushError;
@@ -17,8 +16,12 @@ import kr.pe.hyeonkyun.notification.web.dto.PushCertificationParam;
 @Service
 public class PushCertificationServiceImpl implements IPushCertificationService {
 
-	@Inject
-	private IPushRepository pushRepository;
+	private final IPushRepository pushRepository;
+
+	@Autowired
+	PushCertificationServiceImpl(IPushRepository pushRepository) {
+		this.pushRepository = pushRepository;
+	}
 
 	@Override
 	public int addPushCertification( PushCertificationParam pushCertificationParam ) throws PushException {		

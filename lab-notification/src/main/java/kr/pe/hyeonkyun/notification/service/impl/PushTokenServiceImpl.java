@@ -2,8 +2,6 @@ package kr.pe.hyeonkyun.notification.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -18,8 +16,11 @@ import kr.pe.hyeonkyun.notification.web.dto.PushTokenParam;
 @Service
 public class PushTokenServiceImpl implements IPushTokenService {
 
-	@Inject
-	private IPushRepository pushRepository;
+	private final IPushRepository pushRepository;
+
+	PushTokenServiceImpl(IPushRepository pushRepository) {
+		this.pushRepository = pushRepository;
+	}
 
 	@Override
 	public int addPushToken( PushTokenParam pushTokenParam ) throws PushException {

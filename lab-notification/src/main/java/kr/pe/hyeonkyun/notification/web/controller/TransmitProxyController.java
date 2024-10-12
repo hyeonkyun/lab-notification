@@ -3,9 +3,9 @@ package kr.pe.hyeonkyun.notification.web.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,8 +28,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping( value = "/push/transmit" )
 public class TransmitProxyController {
 
-	@Inject
-	private ITransmitProxyService pushTransmitProxyService ;
+	private final ITransmitProxyService pushTransmitProxyService ;
+
+	@Autowired
+	public TransmitProxyController( ITransmitProxyService pushTransmitProxyService ) {
+		this.pushTransmitProxyService = pushTransmitProxyService ;
+	}
 
 	/** | 1 | POST    | `/push/transmit/{appId}/{accountId}` | 사용자 별 Push 발송 요청 | */
 	@PostMapping( value = "/{appId}/{accountId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )

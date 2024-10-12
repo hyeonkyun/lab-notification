@@ -2,8 +2,8 @@ package kr.pe.hyeonkyun.notification.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.common.exception.PushError;
@@ -16,8 +16,12 @@ import kr.pe.hyeonkyun.notification.web.dto.Page;
 @Service
 public class PushTraceServiceImpl implements IPushTraceService {
 	
-	@Inject
-	private IPushTransmitRepository pushTransmitRepository;
+	private final IPushTransmitRepository pushTransmitRepository;
+
+	@Autowired
+	PushTraceServiceImpl(IPushTransmitRepository pushTransmitRepository) {
+		this.pushTransmitRepository = pushTransmitRepository;
+	}
 
 	@Override
 	public PushTransmitReq getPushTransmitReqByTransmitReqId( String transmitReqId ) throws PushException {

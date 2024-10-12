@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -16,6 +14,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +29,7 @@ import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq.PushTransmit;
 import kr.pe.hyeonkyun.notification.domain.repository.IPushTransmitRepository;
 import kr.pe.hyeonkyun.notification.web.dto.PushTransmitParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 @Slf4j
 @Component
@@ -50,9 +50,13 @@ public class ProxySender implements InitializingBean {
 	
 	@Value("${provider.url}")
     private String providerUrl; 
-	
-	@Inject 
-	IPushTransmitRepository pushTransmitRepository;
+
+	private final IPushTransmitRepository pushTransmitRepository;
+
+	@Autowired
+	ProxySender(IPushTransmitRepository pushTransmitRepository) {
+		this.pushTransmitRepository = pushTransmitRepository;
+	}
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {

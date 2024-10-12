@@ -2,8 +2,7 @@ package kr.pe.hyeonkyun.notification.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.common.PushTransmitReqDataHolder;
@@ -22,17 +21,21 @@ import kr.pe.hyeonkyun.notification.web.dto.PushTransmitParam;
 @Service
 public class TransmitProxyService implements ITransmitProxyService {
 
-	@Inject
-	private IPushRepository pushRepository;
+	private final IPushRepository pushRepository;
 	
-	@Inject
-	private IPushTransmitRepository pushTransmitRepository;
+	private final IPushTransmitRepository pushTransmitRepository;
 	
-	@Inject
-	private ProxyTaskManager proxyTaskManager;
+	private final ProxyTaskManager proxyTaskManager;
 	
-	@Inject
-	ProxySender proxySender;
+	private final ProxySender proxySender;
+
+	@Autowired
+	TransmitProxyService(IPushRepository pushRepository, IPushTransmitRepository pushTransmitRepository, ProxyTaskManager proxyTaskManager, ProxySender proxySender) {
+		this.pushRepository = pushRepository;
+		this.pushTransmitRepository = pushTransmitRepository;
+		this.proxyTaskManager = proxyTaskManager;
+		this.proxySender = proxySender;
+	}
 	
 	@Override
 	public void transmit(PushTransmitParam pushTransmitParam) throws PushException {
@@ -48,7 +51,7 @@ public class TransmitProxyService implements ITransmitProxyService {
 		
 		List<PushTokenInfo> pushTokenInfoList = pushRepository.selectPushTokenInfoListForTransmit( pushTransmitParam.getAppId(), pushTransmitParam.getAccountId() );
 		
-		if( pushTokenInfoList == null || pushTokenInfoList.size() < 1 ) {
+		if( pushTokenInfoList == null || pushTokenInfoList.isEmpty()) {
 			PushTransmitReqDataHolder.getRequestData().setErrMsg( PushError.toMessage(PushError.TOKEN_NOT_FOUND) );
 			pushTransmitRepository.updatePushTransmitReqErrMsg( PushTransmitReqDataHolder.getRequestData() );
 			throw new PushException( PushError.TOKEN_NOT_FOUND, PushError.toMessage(PushError.TOKEN_NOT_FOUND) );

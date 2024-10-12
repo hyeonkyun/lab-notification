@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +34,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping( value = "/push" )
 public class PushCertificationController {
 
-	@Inject
-	IPushCertificationService pushCertificationService; 
+	private final IPushCertificationService pushCertificationService;
+
+	@Autowired
+	PushCertificationController (IPushCertificationService pushCertificationService) {
+		this.pushCertificationService = pushCertificationService;
+	}
 	
 	/** | 1 | POST    | `/push/certification` | Firebase 서비스 계정 비공개 키 등록 | */
 	@PostMapping( value = "/certification", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )

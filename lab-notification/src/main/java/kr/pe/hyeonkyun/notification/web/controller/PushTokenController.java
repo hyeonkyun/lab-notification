@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +32,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping( value = "/push" )
 public class PushTokenController {
 	
-	@Inject
-	IPushTokenService pushTokenService; 
+	private final IPushTokenService pushTokenService;
+
+	@Autowired
+	PushTokenController( IPushTokenService pushTokenService ) {
+		this.pushTokenService = pushTokenService;
+	}
 
 	/** | 1 | POST    | `/push/token` | App 토큰 등록 | */
 	@PostMapping( value = "/token", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )

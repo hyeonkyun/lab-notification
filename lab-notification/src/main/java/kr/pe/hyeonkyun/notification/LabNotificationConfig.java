@@ -1,7 +1,6 @@
 package kr.pe.hyeonkyun.notification;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -14,8 +13,12 @@ import kr.pe.hyeonkyun.notification.interceptor.LoggingInterceptor;
 @Configuration
 public class LabNotificationConfig implements WebMvcConfigurer {
 
-	@Inject
-	LoggingInterceptor loggingInterceptor;
+	private final LoggingInterceptor loggingInterceptor;
+
+	@Autowired
+	LabNotificationConfig(LoggingInterceptor loggingInterceptor) {
+		this.loggingInterceptor = loggingInterceptor;
+	}
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
