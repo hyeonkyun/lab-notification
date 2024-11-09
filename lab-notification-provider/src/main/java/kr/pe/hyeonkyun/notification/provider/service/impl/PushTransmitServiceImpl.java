@@ -1,7 +1,6 @@
 package kr.pe.hyeonkyun.notification.provider.service.impl;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.provider.service.IPushTransmitService;
@@ -13,13 +12,17 @@ import kr.pe.hyeonkyun.notification.provider.web.dto.PushTransmitParam;
 @Service
 public class PushTransmitServiceImpl implements IPushTransmitService {
 
-	@Inject
-	PushTransmitter pushTransmitter;
-	
-	@Inject
-	PushTransmitTaskManager pushTransmitTaskManager;
-	
-	@Override
+	private final PushTransmitter pushTransmitter;
+
+	private final PushTransmitTaskManager pushTransmitTaskManager;
+
+	@Autowired
+    public PushTransmitServiceImpl(PushTransmitter pushTransmitter, PushTransmitTaskManager pushTransmitTaskManager) {
+        this.pushTransmitter = pushTransmitter;
+        this.pushTransmitTaskManager = pushTransmitTaskManager;
+    }
+
+    @Override
 	public void transmit( PushTransmitParam pushTransmitParam ) {
 		pushTransmitTaskManager.execute( new PushTransmitTask( pushTransmitParam, pushTransmitter ) );
 	}

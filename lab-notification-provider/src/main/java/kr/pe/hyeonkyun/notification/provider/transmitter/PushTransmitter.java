@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -50,13 +48,16 @@ public class PushTransmitter implements InitializingBean {
 	
 	private static final String[] SCOPES = { MESSAGING_SCOPE };
 	
-	@Inject
-	CallbackSender callbackSender;
-	
-	@Inject
-	CallbackTaskManager callbackTaskManager;
-	
-	@Override
+	private final CallbackSender callbackSender;
+
+	private final CallbackTaskManager callbackTaskManager;
+
+    public PushTransmitter(CallbackSender callbackSender, CallbackTaskManager callbackTaskManager) {
+        this.callbackSender = callbackSender;
+        this.callbackTaskManager = callbackTaskManager;
+    }
+
+    @Override
 	public void afterPropertiesSet() throws Exception {
 		requestConfig = RequestConfig.custom()
 				.setSocketTimeout(socketTimeout)
