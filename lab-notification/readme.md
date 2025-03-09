@@ -3,20 +3,20 @@
 ## REST API 명세서
 
 ### Firebase 서비스 계정 비공개 키 관리   
-| index | Method | URI | Description | 
-| :---: | --- | --- | --- |
-| 1 | POST    | `/push/certification` | Firebase 서비스 계정 비공개 키 등록 |
-| 2 | GET     | `/push/certifications/{page}/{size}` | Firebase 서비스 계정 비공개 키 조회(리스트) |
-| 3 | GET     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 조회(단건) |
-| 4 | PUT     | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 수정 |
-| 5 | DELETE  | `/push/certification/{appId}` | Firebase 서비스 계정 비공개 키 삭제 |
+| index | Method | URI                                                          | Description                   | 
+|:-----:|--------|--------------------------------------------------------------|-------------------------------|
+|   1   | POST   | `/push/certification`                                        | Firebase 서비스 계정 비공개 키 등록      |
+|   2   | GET    | `/push/certifications?pageNum={pageNum}&pageSize={pageSize}` | Firebase 서비스 계정 비공개 키 조회(리스트) |
+|   3   | GET    | `/push/certification/{appId}`                                | Firebase 서비스 계정 비공개 키 조회(단건)  |
+|   4   | PUT    | `/push/certification/{appId}`                                | Firebase 서비스 계정 비공개 키 수정      |
+|   5   | DELETE | `/push/certification/{appId}`                                | Firebase 서비스 계정 비공개 키 삭제      |
    
 ### App(Client) 토큰 관리
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
 | 1 | POST    | `/push/token` | App 토큰 등록 |
-| 2 | GET     | `/push/tokens/{appId}/{page}/{size}` | Token 조회(리스트 by appId) |
-| 3 | GET     | `/push/tokens/{appId}/{accountId}/{page}/{size}` | Token 조회(리스트 by appId, accountId, page, size) |
+| 2 | GET     | `/push/tokens/{appId}?pageNum={pageNum}&pageSize={pageSize}` | Token 조회(리스트 by appId) |
+| 3 | GET     | `/push/tokens/{appId}/{accountId}?pageNum={pageNum}&pageSize={pageSize}` | Token 조회(리스트 by appId, accountId, page, size) |
 | 4 | PUT     | `/push/token/{appId}/{accountId}` | Token 사용 여부를 사용 or 미사용 으로 변경(by appId, accountId) |
 | 5 | DELETE  | `/push/tokens/{appId}/{accountId}` | Token 삭제(by appId, accountId) |
 | 6 | DELETE  | `/push/token/{appId}/{accountId}/{token}` | Token 삭제(by appId, accountId, token) |
@@ -33,7 +33,7 @@
 | index | Method | URI | Description | 
 | :---: | --- | --- | --- |
 | 1 | GET     | `/push/trace/{transReqId}` | PUSH 발송 요청 로그 조회(단건) |
-| 2 | GET     | `/push/trace/{reqDt}/{pageNo}/{size}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) |
+| 2 | GET     | `/push/trace/{reqDt}?pageNum={pageNum}&pageSize={pageSize}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) |
    
 ---   
 ## REST API 상세
@@ -66,13 +66,13 @@
 #### 2. Firebase 서비스 계정 비공개 키 조회(리스트)
 
 ##### Request :: GET 방식으로 호출
-- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/certifications/{page}/{size}```  
-- Request Parameter (GET 방식, PathVariable)   
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/certifications?pageNum={pageNum}&pageSize={pageSize}```  
+- Request Parameter (GET 방식, QueryParameter)   
 
 | 파라미터명 | 타입 | 필수여부 | 설명 | 
 | :---: | --- | --- | --- |
-| `page` | Number | 필수 | 페이지번호 |
-| `size` | Number | 필수 | 페이지당 리스트 개수 |
+| `pageNum` | Number | 필수 | 페이지번호 |
+| `pageSize` | Number | 필수 | 페이지당 리스트 개수 |
 
 ##### Response Format :: JOSN 형태로 반환
 | 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
@@ -186,14 +186,14 @@
 #### 2. Token 조회(리스트 by appId)
 
 ##### Request :: GET 방식으로 호출
-- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/tokens/{appId}/{page}/{size}```  
-- Request Parameter (GET 방식, PathVariable)   
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/tokens/{appId}?pageNum={pageNum}&pageSize={pageSize}```  
+- Request Parameter (GET 방식, PathVariable, QueryParameter)   
 
 | 파라미터명 | 타입 | 필수여부 | 설명 | 
 | :---: | --- | --- | --- |
 | `appId` | String | 필수 | 앱 ID |
-| `page` | Number | 필수 | 페이지번호 |
-| `size` | Number | 필수 | 페이지당 리스트 개수 |
+| `pageNum` | Number | 필수 | 페이지번호 |
+| `pageSize` | Number | 필수 | 페이지당 리스트 개수 |
 
 ##### Response Format :: JOSN 형태로 반환
 | 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
@@ -215,15 +215,15 @@
 | `updDt` | String | 3 |  | 수정일시 |  |
  
 #### 3. Token 조회(리스트 by appId, accountId, page, size)
-- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/tokens/{appId}/{accountId}/{page}/{size}```  
-- Request Parameter (GET 방식, PathVariable)   
+- HTTP URL : ```http://[ServerIp]:[ServerPort]/[context-path]/push/tokens/{appId}/{accountId}?pageNum={pageNum}&pageSize={pageSize}```  
+- Request Parameter (GET 방식, PathVariable, QueryParameter)   
 
 | 파라미터명 | 타입 | 필수여부 | 설명 | 
 | :---: | --- | --- | --- |
 | `appId` | String | 필수 | 앱 ID |
 | `accountId` | String | 필수 | 계정 ID |
-| `page` | Number | 필수 | 페이지번호 |
-| `size` | Number | 필수 | 페이지당 리스트 개수 |
+| `pageNum` | Number | 필수 | 페이지번호 |
+| `pageSize` | Number | 필수 | 페이지당 리스트 개수 |
 
 ##### Response Format :: JOSN 형태로 반환
 | 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
@@ -430,15 +430,15 @@
  
 
 #### 2. PUSH 발송 요청 로그 조회(리스트 by 요청일자) 
-- HTTP URL : ```hhttp://[ServerIp]:[ServerPort]/[context-path]/push/trace/{reqDt}/{page}/{size}```  
-- Request Parameter (GET 방식, PathVariable)   
+- HTTP URL : ```hhttp://[ServerIp]:[ServerPort]/[context-path]/push/trace/{reqDt}?pageNum={pageNum}&pageSize={pageSize}```  
+- Request Parameter (GET 방식, PathVariable, QueryParameter)   
 
 | 파라미터명 | 타입 | 필수여부 | 설명 | 
 | :---: | --- | --- | --- |
 | `reqDt` | String | 필수 | 요청일 | 
-| `page` | Number | 필수 | 페이지번호 |
-| `size` | Number | 필수 | 페이지당 리스트 개수 |
-
+| `pageNum` | Number | 필수 | 페이지번호 |
+| `pageSize` | Number | 필수 | 페이지당 리스트 개수 |
+ 
 ##### Response Format :: JOSN 형태로 반환
 | 엘리먼트명 | 타입 | Depth | 배열구분 | 설명 | 값 구분 | 
 | :---: | --- | --- | --- | --- | --- |

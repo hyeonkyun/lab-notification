@@ -4,14 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import kr.pe.hyeonkyun.notification.common.exception.PushError;
 import kr.pe.hyeonkyun.notification.common.exception.PushException;
@@ -35,23 +30,23 @@ public class PushTraceController {
 	
 	/** | 1 | GET     | `/push/trace/{transReqId}` | PUSH 발송 요청 로그 조회(단건) | */
 	@GetMapping( value = "/{transReqId}", produces = MediaType.APPLICATION_JSON_VALUE )
-	public PushResponse pushTransmitLogTraceByTransReqId( @PathVariable ("transReqId") String _transmitReqId, HttpServletRequest request ) throws PushException {
-		Map<String, Object> responseBody = new HashMap<String, Object>();		
+	public PushResponse pushTransmitLogTraceByTransReqId( @PathVariable ("transReqId") String _transmitReqId ) throws PushException {
+		Map<String, Object> responseBody = new HashMap<>();
 		responseBody.put("pushTransmitReqInfo", pushTraceService.getPushTransmitReqByTransmitReqId( _transmitReqId ) );
 		
 		return new PushResponse( PushError.OK, PushError.toMessage( PushError.OK ), responseBody );
 	}
 	
-	/** | 2 | GET     | `/push/trace/{reqDt}/{page}/{size}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) | */
-	@GetMapping( value = "/{reqDt}/{page}/{size}", produces = MediaType.APPLICATION_JSON_VALUE )
-	public PushResponse pushTransmitLogTrace( @PathVariable ("reqDt") String _reqDt, @PathVariable ("page") int _page, @PathVariable ("size") int _size, HttpServletRequest request ) throws PushException {
-		Map<String, Object> responseBody = new HashMap<String, Object>();
+	/** | 2 | GET     | `/push/trace/{reqDt}?pageNum={pageNum}&pageSize={pageSize}` | PUSH 발송 요청 로그 조회(리스트 by 요청일자) | */
+	@GetMapping( value = "/{reqDt}", produces = MediaType.APPLICATION_JSON_VALUE )
+	public PushResponse pushTransmitLogTrace(@PathVariable ("reqDt") String _reqDt, @RequestParam("pageNum") int _page, @RequestParam ("pageSize") int _size ) throws PushException {
+		Map<String, Object> responseBody = new HashMap<>();
 		
 		Page page = new Page( _page, _size );
 		String fromDate = String.format( "%s 00:00:00", _reqDt ); 
 		String toDate = String.format( "%s 23:59:59", _reqDt );
 		
-		log.info( "fromDate : " + fromDate + ", toDate : " + toDate + ", page : " + page.toString() );
+		log.info( "fromDate : " + fromDate + ", toDate : " + toDate + ", page : " + page );
 		List<PushTransmitReq> pushTransmitReqList = pushTraceService.getPushTransmitReqList( fromDate, toDate, page );
 		
 		if ( pushTransmitReqList != null && !pushTransmitReqList.isEmpty()) {

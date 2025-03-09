@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.auth.oauth2.GoogleCredentials;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -159,12 +160,18 @@ public class PushTransmitter implements InitializingBean {
 		return ConvertUtils.mapToJsonString( payload );
 	}	
 	
-	private String getAccessToken( String serverKey ) throws IOException {
-		GoogleCredential googleCredential = GoogleCredential.fromStream( new ByteArrayInputStream( serverKey.getBytes() ) ).createScoped( Arrays.asList(SCOPES) );
-		googleCredential.refreshToken();
-		String result = googleCredential.getAccessToken();
-		
-		return result;
+//	private String getAccessToken( String serverKey ) throws IOException {
+//		GoogleCredential googleCredential = GoogleCredential.fromStream( new ByteArrayInputStream( serverKey.getBytes() ) ).createScoped( Arrays.asList(SCOPES) );
+//		googleCredential.refreshToken();
+//		String result = googleCredential.getAccessToken();
+//
+//		return result;
+//	}
+
+	private String getAccessToken( String serverKey) throws IOException {
+		GoogleCredentials googleCredentials = GoogleCredentials.fromStream(  new ByteArrayInputStream( serverKey.getBytes() ) ).createScoped(Arrays.asList(SCOPES));
+		googleCredentials.refresh();
+		return googleCredentials.getAccessToken().getTokenValue();
 	}
 	
 	private void writeLog( Map<String, String> logMap ) {
