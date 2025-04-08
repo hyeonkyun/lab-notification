@@ -2,14 +2,13 @@ package kr.pe.hyeonkyun.notification.service.impl;
 
 import java.util.List;
 
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.common.exception.PushError;
 import kr.pe.hyeonkyun.notification.common.exception.PushException;
 import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq;
-import kr.pe.hyeonkyun.notification.domain.repository.IPushTransmitRepository;
+import kr.pe.hyeonkyun.notification.domain.mapper.IPushTransmitRepository;
 import kr.pe.hyeonkyun.notification.service.IPushTraceService;
 import kr.pe.hyeonkyun.notification.web.dto.Page;
 

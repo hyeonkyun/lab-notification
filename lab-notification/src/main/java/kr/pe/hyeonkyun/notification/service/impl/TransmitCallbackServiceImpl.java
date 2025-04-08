@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.pe.hyeonkyun.notification.common.exception.PushException;
 import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq.PushTransmit;
-import kr.pe.hyeonkyun.notification.domain.repository.IPushTransmitRepository;
+import kr.pe.hyeonkyun.notification.domain.mapper.IPushTransmitRepository;
 import kr.pe.hyeonkyun.notification.service.ITransmitCallbackService;
 
 @Service

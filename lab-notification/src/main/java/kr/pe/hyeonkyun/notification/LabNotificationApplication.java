@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-@MapperScan(basePackages = "kr.pe.hyeonkyun.notification.domain.repository")
+@MapperScan(basePackages = "kr.pe.hyeonkyun.notification.domain.mapper")
 public class LabNotificationApplication {
 
 	public static void main(String[] args) {

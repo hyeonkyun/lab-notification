@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.pe.hyeonkyun.notification.domain.repository.IPushTransmitRepository">
+<mapper namespace="kr.pe.hyeonkyun.notification.domain.mapper.IPushTransmitRepository">
 
 	<resultMap id="PushTransmitReqMap" type="kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq">
 	    <collection property="pushTransmits" column="{transmitReqId=TRANSMIT_REQ_ID}" select="selectPushTransmit" />

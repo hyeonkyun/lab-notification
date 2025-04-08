@@ -1,11 +1,10 @@
-package kr.pe.hyeonkyun.notification.domain.repository;
+package kr.pe.hyeonkyun.notification.domain.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq;

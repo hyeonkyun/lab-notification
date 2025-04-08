@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.pe.hyeonkyun.notification.common.exception.PushError;
 import kr.pe.hyeonkyun.notification.common.exception.PushException;
 import kr.pe.hyeonkyun.notification.domain.model.PushCertificationInfo;
-import kr.pe.hyeonkyun.notification.domain.repository.IPushRepository;
+import kr.pe.hyeonkyun.notification.domain.mapper.IPushRepository;
 import kr.pe.hyeonkyun.notification.service.IPushCertificationService;
 import kr.pe.hyeonkyun.notification.web.dto.Page;
 import kr.pe.hyeonkyun.notification.web.dto.PushCertificationParam;

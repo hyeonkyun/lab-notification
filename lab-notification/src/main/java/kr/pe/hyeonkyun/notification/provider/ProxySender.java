@@ -26,10 +26,9 @@ import kr.pe.hyeonkyun.notification.domain.model.PushCertificationInfo;
 import kr.pe.hyeonkyun.notification.domain.model.PushTokenInfo;
 import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq;
 import kr.pe.hyeonkyun.notification.domain.model.PushTransmitReq.PushTransmit;
-import kr.pe.hyeonkyun.notification.domain.repository.IPushTransmitRepository;
+import kr.pe.hyeonkyun.notification.domain.mapper.IPushTransmitRepository;
 import kr.pe.hyeonkyun.notification.web.dto.PushTransmitParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 
 @Slf4j
 @Component
