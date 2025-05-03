@@ -1,0 +1,21 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+  application:
+    name: lab-notification
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/lab?useSSL=false&characterEncoding=UTF8
+    username: root
+    password: root
+
+server:
+  port: 8080
+
+#logging:
+#  file:
+#    path: C:/lab/lab-notification/logs/lab-notification
+
+service:
+  mode: local

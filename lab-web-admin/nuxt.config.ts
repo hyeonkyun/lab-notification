@@ -1,9 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint'],
-  typescript: {
-    typeCheck: true
-  }
-})
+  modules: [
+    'nuxt-quasar-ui',
+    '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
+  ],
+  quasar: {
+    plugins: ['Notify'],
+    config: {
+      notify: {
+        position: 'top-right',
+      },
+    },
+  },
+});
